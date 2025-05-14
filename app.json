@@ -1,5 +1,14 @@
 {
   "expo": {
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Ứng dụng cần quyền truy cập thư viện ảnh để tải lên giấy tờ.",
+          "cameraPermission": "Ứng dụng cần quyền truy cập camera để chụp ảnh giấy tờ."
+        }
+      ]
+    ],
     "name": "f4-mobile",
     "slug": "f4-mobile",
     "version": "1.0.0",
@@ -21,7 +30,11 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "permissions": [
+        "READ_MEDIA_IMAGES",
+        "CAMERA"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
