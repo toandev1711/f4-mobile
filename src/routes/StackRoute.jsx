@@ -1,6 +1,6 @@
 import EditProfileForm from '../components/EditProfileForm/EditProfileForm';
 import EditUserProfileScreen from '../screens/EditUserProfile/EditUserProfileScreen';
-import { Text } from 'react-native';
+import LoginScreen from '../screens/UserLogin/LoginScreen';
 
 const StackRoutes = [
   {
@@ -14,7 +14,7 @@ const StackRoutes = [
     component: EditProfileForm,
     options: { title: 'Form to edit', headerShown: false, },
     unmountOnBlur: true
-  },
+  }
 ];
 
 export default StackRoutes;
