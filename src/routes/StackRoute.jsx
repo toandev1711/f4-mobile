@@ -1,7 +1,11 @@
 import EditProfileForm from '../components/EditProfileForm/EditProfileForm';
 import EditUserProfileScreen from '../screens/EditUserProfile/EditUserProfileScreen';
-import LoginScreen from '../screens/UserLogin/LoginScreen';
-
+import { Text } from 'react-native';
+import DocumentScreen from '../screens/ProfileDriver/Documents/DocumentScreen';
+import DocumentDetailScreen from '../screens/ProfileDriver/Documents/DocumentDetailScreen';
+import WalletScreen from '../screens/ProfileDriver/Wallet/WalletScreen';
+import CarInfoScreen from '../screens/ProfileDriver/CarInfo/CarInfoScreen';
+import EditDriverProfileScreen from '../screens/ProfileDriver/EditDriverProfile/EditDriverProfileScreen';
 const StackRoutes = [
   {
     name: 'EditProfile',
@@ -14,7 +18,38 @@ const StackRoutes = [
     component: EditProfileForm,
     options: { title: 'Form to edit', headerShown: false, },
     unmountOnBlur: true
-  }
+  },
+    {
+    name: 'CarInfo',
+    component: CarInfoScreen,
+    options: { title: 'CarInfos', headerShown: false, },
+    unmountOnBlur: true
+  },
+  {
+    name: 'Document',
+    component: DocumentScreen,
+    options: { title: 'Document', headerShown: false, },
+    unmountOnBlur: true
+  },
+  {
+    name: 'DocumentDetail',
+    component: DocumentDetailScreen,
+    options: { title: 'DocumentDetail', headerShown: false, },
+    unmountOnBlur: true
+  },
+ 
+  {
+    name: 'Wallet',
+    component: WalletScreen,
+    options: { title: 'Wallet', headerShown: false, },
+    unmountOnBlur: true
+  },
+    {
+    name: 'EditProfileDriver',
+    component: EditDriverProfileScreen,
+    options: { title: 'My Profile', headerShown: false, },
+    unmountOnBlur: true
+  },
 ];
 
 export default StackRoutes;
