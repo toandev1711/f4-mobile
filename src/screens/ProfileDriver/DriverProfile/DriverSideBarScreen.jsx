@@ -20,7 +20,7 @@ import { useNavigation } from "@react-navigation/native";
 import CircleAvatar from "../../../components/CircleAvatar/CircleAvtar";
 import Button from "../../../components/Button/Button";
 
-const DriverProfileScreen = () => {
+const DriverSideBarScreen = () => {
   const navigation = useNavigation();
   const [profileListItem] = useState([
   {
@@ -61,7 +61,7 @@ const DriverProfileScreen = () => {
   ]);
 
   const goToEditProfile = () => {
-    navigation.navigate("EditProfile");
+    navigation.navigate("EditProfileDriver");
   };
 
   return (
@@ -106,4 +106,4 @@ const DriverProfileScreen = () => {
   );
 };
 
-export default DriverProfileScreen;
+export default DriverSideBarScreen;

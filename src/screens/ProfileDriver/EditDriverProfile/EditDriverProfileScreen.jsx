@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-import CircleAvatar from "../../components/CircleAvatar/CircleAvtar";
-import Header from "../../components/Header/Header";
-import ProfileField from "../../components/ProfileField/ProfileField";
+import CircleAvatar from "../../../components/CircleAvatar/CircleAvtar";
+import Header from "../../../components/Header/Header";
+import ProfileField from "../../../components/ProfileField/ProfileField";
+import Button from "../../../components/Button/Button";
 
 const EditDriverProfileScreen = () => {
   const navtigation = useNavigation();
@@ -33,7 +34,9 @@ const EditDriverProfileScreen = () => {
       type: "password",
     },
   ]);
-
+    const goToDocument = () => {
+    navtigation.navigate("Document");
+  };
   const handleEdit = (field) => {
     navtigation.navigate("EditProfileForm", {
       label: field.label,
@@ -55,6 +58,11 @@ const EditDriverProfileScreen = () => {
           <ProfileField key={index} label={field.label} value={field.value} onClick={() => handleEdit(field)} />
         ))}
       </ScrollView>
+      <Button
+        content="Update Document"
+        bgClass="bg-black"
+        onPress={goToDocument}
+      />      
     </View>
   );
 };

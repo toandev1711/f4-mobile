@@ -7,8 +7,7 @@ import {
   TruckIcon,
   CheckCircleIcon,
 } from "react-native-heroicons/outline";
-import CarImg from "../CircleAvatar/CarImg";
-
+import CarImg from "./CarImg";
 const CarCard = ({
   documenttype,
   vehicleName,
