@@ -1,13 +1,39 @@
-import { View, Text, SafeAreaView } from "react-native";
-import React from "react";
+// src/screens/HomeScreen.jsx
+import React from 'react';
+import { View, ScrollView, StyleSheet } from 'react-native';
+import Header1 from '../../components/Header1/Header1';
+import ServiceCards from '../../components/ServiceCards/ServiceCards';
+import QuickAccess from '../../components/QuickAccess/QuickAccess';
+import DriverPromotion from '../../components/DriverPromotion/DriverPromotion';
+import Promotions from '../../components/Promotions/Promotions';
+import Suggestions from '../../components/Suggestions/Suggestions';
+import Footer from '../../components/Footer/Footer';
 
-export default function HomeScreen() {
+const HomeScreen = () => {
   return (
-    <SafeAreaView className="flex-1 bg-white p-4" style={{ paddingTop: 20 }}>
-      <View className="flex-1 justify-center items-center">
-        <Text className="text-2xl font-bold">Home Screen</Text>
-      </View>
-    </SafeAreaView>
-   
+    <View style={styles.container}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Header1 />
+        <ServiceCards />
+        <QuickAccess />
+        <DriverPromotion />
+        <Promotions />
+        <Suggestions />
+        <Footer />
+      </ScrollView>
+    </View>
   );
-}
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingHorizontal: 10,
+    backgroundColor: '#F5F5F5',
+    maxWidth: 480,
+    alignSelf: 'center',
+    //paddingBottom: 60, // Để tránh TabBar che nội dung
+  },
+});
+
+export default HomeScreen;
