@@ -14,7 +14,7 @@ const ProfileDriverScreen = () => {
         phone="123123123"
         rating="4.8"
         totalReviews={342}
-        onPress={() => navigation.navigate("EditProfile")}
+        onPress={() => navigation.navigate("EditProfileDriver")}
       />
 
       <Text className="text-xl font-bold text-gray-800 mt-4 mb-2 mx-4">Tổng quan</Text>

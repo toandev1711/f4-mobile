@@ -4,7 +4,7 @@ import "./global.css";
 import { NavigationContainer } from "@react-navigation/native";
 import MainStack from "./src/navigations/MainStack";
 import { SafeAreaView } from "react-native-safe-area-context";
-// import DriverStack from "./src/navigations/DriverStack";
+import DriverStack from "./src/navigations/DriverStack";
 
 export default function App() {
   return (
@@ -12,7 +12,7 @@ export default function App() {
       <View className="flex-1 font-roboto">
 
       <MainStack />
-            {/* <DriverStack/> */}
+      {/* <DriverStack/> */}
       </View>
     </NavigationContainer>
   );
