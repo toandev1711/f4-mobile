@@ -20,11 +20,13 @@ export default function MainStack() {
       <Stack.Screen
         name="Login"
         component={LoginScreen}
-        options={{ headerShown: false }} />
+        options={{ headerShown: false }}
+      />
       <Stack.Screen
         name="CustomerRegister"
         component={CustomerSignupScreen}
-        options={{ headerShown: false }} />
+        options={{ headerShown: false }}
+      />
       <Stack.Screen
         name="DriverRegister"
         component={DriverRegistrationWizard}

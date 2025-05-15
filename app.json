@@ -32,9 +32,14 @@
       },
       "edgeToEdgeEnabled": true,
       "permissions": [
-        "READ_MEDIA_IMAGES",
-        "CAMERA"
-      ]
+        "android.permission.READ_MEDIA_IMAGES",
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO",
+        "android.permission.READ_MEDIA_IMAGES",
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.anonymous.f4mobile"
     },
     "web": {
       "favicon": "./assets/favicon.png"
