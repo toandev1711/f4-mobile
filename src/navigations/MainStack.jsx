@@ -5,7 +5,7 @@ import StackRoutes from "../routes/StackRoute";
 import LoginScreen from "../screens/UserLogin/LoginScreen";
 import CustomerSignupScreen from "../screens/UserRegister/CustomerRegisterScreen";
 import DriverRegistrationWizard from "../screens/UserRegister/DriverRegisterScreen";
-
+import BottomTabDriver from "./BottomTabDriver";
 const Stack = createNativeStackNavigator();
 
 export default function MainStack() {
@@ -42,6 +42,12 @@ export default function MainStack() {
           component={route.component}
         />
       ))}
+      <Stack.Screen
+        name="DriverTabs"
+        component={BottomTabDriver}
+        options={{ headerShown: false }}
+      />
+
     </Stack.Navigator>
   );
 }
