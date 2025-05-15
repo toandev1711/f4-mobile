@@ -11,7 +11,7 @@ const Stack = createNativeStackNavigator();
 
 export default function DriverStack() {
   return (
-       <Stack.Navigator
+    <Stack.Navigator
       screenOptions={{
         contentStyle: { backgroundColor: "white" },
         headerShown: false,
