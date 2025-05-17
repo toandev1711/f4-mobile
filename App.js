@@ -7,15 +7,17 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import DriverStack from "./src/navigations/DriverStack";
 import TransportScreen from "./src/screens/Transport/TransportScreen";
 import SearchLocationScreen from "./src/screens/SearchLocation/SearchLocationScreen";
+import CurrentLocation from "./src/components/CurrentLocation/CurrentLocation";
+import MapDisplay from "./src/screens/MapDisplay/MapDisplay";
+import FormToggle from "./FormToggle";
 
 export default function App() {
   return (
     <SafeAreaProvider>
       <SafeAreaView className="flex-1">
         <NavigationContainer>
-          <SearchLocationScreen />
+          <MainStack />
         </NavigationContainer>
-
       </SafeAreaView>
     </SafeAreaProvider>
     // <NavigationContainer>
