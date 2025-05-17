@@ -7,6 +7,14 @@
           "photosPermission": "Ứng dụng cần quyền truy cập thư viện ảnh để tải lên giấy tờ.",
           "cameraPermission": "Ứng dụng cần quyền truy cập camera để chụp ảnh giấy tờ."
         }
+      ],
+      [
+         "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Cho phép F4 sử dụng vị trí của bạn",
+          "isAndroidBackgroundLocationEnabled" : true,
+          "isIosBackgroundLocationEnabled" : true
+        }
       ]
     ],
     "name": "f4-mobile",
@@ -23,21 +31,32 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "googleMapsApiKey" : "AIzaSyD5GUOMMrDY5Ml8JOQ5j7z7p9f8GaGCDBg"
     },
     "android": {
+       "googleMaps": {
+          "apiKey": "AIzaSyD5GUOMMrDY5Ml8JOQ5j7z7p9f8GaGCDBg"
+        },
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
       "permissions": [
-        "READ_MEDIA_IMAGES",
-        "CAMERA"
-      ]
+        "android.permission.READ_MEDIA_IMAGES",
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO",
+        "android.permission.READ_MEDIA_IMAGES",
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.anonymous.f4mobile"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     }
+  
+  
   }
 }

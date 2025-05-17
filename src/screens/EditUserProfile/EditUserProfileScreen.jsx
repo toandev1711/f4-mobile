@@ -49,7 +49,6 @@ const EditUserProfileScreen = () => {
       <View className="items-center justify-center mb-6">
         <CircleAvatar />
       </View>
-
       <ScrollView className="space-y-4">
         {profileField.map((field, index) => (
           <ProfileField key={index} label={field.label} value={field.value} onClick={() => handleEdit(field)} />
