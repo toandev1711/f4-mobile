@@ -1,10 +1,12 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const ServiceCards = () => {
+  const navigation = useNavigation()
   const handlePress = () => {
-    Alert.alert('Điều hướng đến Đặt xe ngay', 'Chưa có trang cho Đặt xe ngay. Vui lòng thêm logic điều hướng!');
+    navigation.navigate("Transport")
   };
 
   return (

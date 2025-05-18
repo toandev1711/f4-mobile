@@ -54,7 +54,7 @@ const TransportScreen = () => {
     <View className="flex-1 bg-white">
       <View className="bg-green-100 h-56 px-4 pt-12">
         <View className="flex-row align-center">
-          <TouchableOpacity className="justify-center items-center mr-3" >
+          <TouchableOpacity className="justify-center items-center mr-3" onPress={() => navigation.goBack()}>
             <ChevronLeftIcon size={23} color="black" />
           </TouchableOpacity>
           <Text className="text-2xl font-bold">Transport</Text>
