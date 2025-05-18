@@ -1,26 +1,17 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const ServiceCards = () => {
-  const handlePress = (cardName) => {
-    Alert.alert(`Điều hướng đến ${cardName}`, `Chưa có trang cho ${cardName}. Vui lòng thêm logic điều hướng!`);
+  const handlePress = () => {
+    Alert.alert('Điều hướng đến Đặt xe ngay', 'Chưa có trang cho Đặt xe ngay. Vui lòng thêm logic điều hướng!');
   };
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.card} onPress={() => handlePress('Chở khách')}>
-        <Image
-          source={{ uri: 'https://i.imgur.com/FXxX9xH.png' }}
-          style={styles.cardImage}
-        />
-        <Text style={styles.cardText}>Chở khách</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.card} onPress={() => handlePress('Chở hàng')}>
-        <Image
-          source={{ uri: 'https://i.imgur.com/lbF4VwN.png' }}
-          style={styles.cardImage}
-        />
-        <Text style={styles.cardText}>Chở hàng</Text>
+      <TouchableOpacity style={styles.card} onPress={handlePress}>
+        <Icon name="car" size={32} color="#7C3AED" style={styles.itemImage} />
+        <Text style={styles.itemText}>Đặt xe ngay</Text>
       </TouchableOpacity>
     </View>
   );
@@ -30,13 +21,14 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     justifyContent: 'center',
-    gap: 10,
     padding: 10,
     backgroundColor: '#F5F5F5',
     marginTop: 10,
+    // Optional: để fill space nếu muốn
+    flex: 1,
   },
   card: {
-    flex: 1,
+    flex: 1, // fill rộng
     alignItems: 'center',
     padding: 10,
     backgroundColor: 'white',
@@ -49,8 +41,14 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     elevation: 2,
   },
-  cardImage: { width: 48, height: 48, borderRadius: 24 },
-  cardText: { marginTop: 8, color: '#444', fontSize: 12 },
+  itemImage: {
+    marginBottom: 8,
+  },
+  itemText: {
+    marginTop: 8,
+    color: '#444',
+    fontSize: 12,
+  },
 });
 
 export default ServiceCards;
