@@ -8,13 +8,13 @@ const Button = ({
   heightClass,   
   bgClass,   
   textColor = "text-white",
-  textSize = "text-sm",  
+  textSize = "text-base",  
   width,
   height
 }) => {
   return (
     <TouchableOpacity
-      className={`rounded-md items-center justify-center px-5 py-2 ${widthClass} ${heightClass} ${bgClass} ${width} ${height}`}
+      className={`rounded-md items-center justify-center px-6 py-3 ${widthClass} ${heightClass} ${bgClass} ${width} ${height}`}
       onPress={onPress}
       activeOpacity={0.8}
     >

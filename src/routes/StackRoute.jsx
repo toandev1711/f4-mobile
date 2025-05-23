@@ -9,6 +9,7 @@ import EditDriverProfileScreen from "../screens/ProfileDriver/EditDriverProfile/
 import MapDisplay from "../screens/MapDisplay/MapDisplay";
 import TransportScreen from "../screens/Transport/TransportScreen";
 import SearchLocationScreen from "../screens/SearchLocation/SearchLocationScreen";
+import OtpVerificationScreen from "../screens/UserRegister/OtpVerificationScreen";
 const StackRoutes = [
   {
     name: "EditProfile",
@@ -66,6 +67,11 @@ const StackRoutes = [
   {
     name: "SearchLocation",
     component: SearchLocationScreen,
+    options: { title: "My Profile", headerShown: false },
+  },
+  {
+    name: "OtpVerification",
+    component: OtpVerificationScreen,
     options: { title: "My Profile", headerShown: false },
   },
 ];
