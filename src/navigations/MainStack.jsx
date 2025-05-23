@@ -11,22 +11,12 @@ const Stack = createNativeStackNavigator();
 export default function MainStack() {
   return (
     <Stack.Navigator
-      initialRouteName="Login"
+      initialRouteName= "MainTabs"
       screenOptions={{
         contentStyle: { backgroundColor: "white" },
         headerShown: false,
       }}
     >
-      <Stack.Screen
-        name="Login"
-        component={LoginScreen}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="CustomerRegister"
-        component={CustomerSignupScreen}
-        options={{ headerShown: false }}
-      />
       <Stack.Screen
         name="DriverRegister"
         component={DriverRegistrationWizard}

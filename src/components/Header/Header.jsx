@@ -21,8 +21,8 @@ const Header = ({ value, tail, onClick }) => {
       </Text>
       {tail && (
         <Button
-          width="w-20"
-          height="h-10"
+          width="w-22"
+          height="h-15"
           onPress={onClick}
           content={tail}
           textColor="text-blue-600"
