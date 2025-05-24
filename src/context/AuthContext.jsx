@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, {
+  createContext,
+  use,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { loginAPI, getMyInfo } from "../api/auth/loginAPI";
 import { jwtDecode } from "jwt-decode";
@@ -45,7 +51,6 @@ export const AuthProvider = ({ children }) => {
       const roleValue = isUser ? "user" : "driver";
       setRole(roleValue);
       setUser(userInfo.result);
-      setUser(userInfo.result);
       await AsyncStorage.setItem("user", JSON.stringify(userInfo.result));
       await AsyncStorage.setItem("userID", userID);
       await AsyncStorage.setItem("token", token);
@@ -64,7 +69,9 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{setUser, user, token, isLoading, login, logout }}>
+    <AuthContext.Provider
+      value={{ setUser, user, token, isLoading, login, logout }}
+    >
       {children}
     </AuthContext.Provider>
   );

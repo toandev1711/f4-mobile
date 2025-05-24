@@ -4,6 +4,7 @@ import {
   UserIcon as UserSolid,
   BellIcon as BellSolid,
   ChartBarIcon as ChartSolid,
+  ChatBubbleBottomCenterTextIcon as ChatSolid
 } from "react-native-heroicons/solid";
 
 import {
@@ -11,10 +12,12 @@ import {
   UserIcon as UserOutline,
   BellIcon as BellOutline,
   ChartBarIcon as ChartOutline,
+  ChatBubbleBottomCenterTextIcon as ChatOutline
 } from "react-native-heroicons/outline";
 
 import UserProfileScreen from "../screens/UserProfile/UserProfileScreen";
 import HomeScreen from "../screens/HomeScreen/HomeScreen";
+import ChatListScreen from "../screens/Chat/ChatListScreen";
 
 const TabRoutes = [
   {
@@ -23,34 +26,34 @@ const TabRoutes = [
     options: {
       tabBarLabel: "Home",
       tabBarIcon: ({ color, size, focused }) =>
-        focused ? <HomeSolid color={color} size={20} /> : <HomeOutline color={color} size={20} />,
+        focused ? <HomeSolid color={color} size={20} /> : <HomeOutline color={color} size={22} strokeWidth={2.5}/>,
     },
   },
   {
-    name: "Vallet",
+    name: "Acitivity",
     component: HomeScreen,
     options: {
-      tabBarLabel: "Vallet",
+      tabBarLabel: "Hoạt động",
       tabBarIcon: ({ color, size, focused }) =>
-        focused ? <ChartSolid color={color} size={20} /> : <ChartOutline color={color} size={20} />,
+        focused ? <BellSolid color={color} size={22} /> : <BellOutline color={color} size={22} strokeWidth={2.5}/>,
     },
   },
   {
-    name: "Activity",
-    component: HomeScreen,
+    name: "Message",
+    component: ChatListScreen,
     options: {
-      tabBarLabel: "Activity",
+      tabBarLabel: "Tin nhắn",
       tabBarIcon: ({ color, size, focused }) =>
-        focused ? <BellSolid color={color} size={20} /> : <BellOutline color={color} size={20} />,
+        focused ? <ChatSolid color={color} size={22} /> : <ChatOutline color={color} size={22} strokeWidth={2.5}/>,
     },
   },
   {
     name: "UserProfile",
     component: UserProfileScreen,
     options: {
-      tabBarLabel: "Profile",
+      tabBarLabel: "Tài khoản ",
       tabBarIcon: ({ color, size, focused }) =>
-        focused ? <UserSolid color={color} size={20} /> : <UserOutline color={color} size={20} />,
+        focused ? <UserSolid color={color} size={22} /> : <UserOutline color={color} size={22} strokeWidth={2.5}/>,
     },
   },
 ];

@@ -8,7 +8,17 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        roboto: ["Roboto-Regular"],
+        'facebook-sans': ['FacebookSansRegular', 'sans-serif'],
+        'facebook-sans-light': ['FacebookSansLight', 'sans-serif'],
+        'facebook-sans-italic': ['FacebookSansItalic', 'sans-serif'],
+        'facebook-sans-light-italic': ['FacebookSansLightItalic', 'sans-serif'],
+        'facebook-sans-heavy': ['FacebookSansHeavy', 'sans-serif'],
+        'facebook-sans-heavy-italic': ['FacebookSansHeavyItalic', 'sans-serif'],
+        'facebook-sans-hairline': ['FacebookSansHairline', 'sans-serif'],
+        'facebook-sans-hairline-italic': ['FacebookSansHairlineItalic', 'sans-serif'],
+        'facebook-sans-bold': ['FacebookSansBold', 'sans-serif'],
+        'facebook-sans-bold-italic': ['FacebookSansBoldItalic', 'sans-serif'],
+        'facebook-narrow': ['FacebookNarrowAppRegular', 'sans-serif'], 
       },
       colors: {
         'custom-primary-green': '#00b14f',     

@@ -10,6 +10,7 @@ import MapDisplay from "../screens/MapDisplay/MapDisplay";
 import TransportScreen from "../screens/Transport/TransportScreen";
 import SearchLocationScreen from "../screens/SearchLocation/SearchLocationScreen";
 import OtpVerificationScreen from "../screens/UserRegister/OtpVerificationScreen";
+import ChatDetailScreen from "../screens/Chat/ChatDetailScreen";
 const StackRoutes = [
   {
     name: "EditProfile",
@@ -74,6 +75,11 @@ const StackRoutes = [
     component: OtpVerificationScreen,
     options: { title: "My Profile", headerShown: false },
   },
+  {
+    name: 'ChatDetail',
+    component: ChatDetailScreen,
+    options: { title: "My Profile", headerShown: false },
+  }
 ];
 
 export default StackRoutes;

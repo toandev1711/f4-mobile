@@ -13,8 +13,9 @@ const BottomTab = () => {
           backgroundColor: "#fff",
           elevation: 0,
           shadowColor: "transparent",
-          height: 52
+          height: 52,
         },
+        tabBarActiveTintColor: "#02b34f",
       }}
     >
       {TabRoutes.map((route, index) => (
