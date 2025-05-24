@@ -11,7 +11,7 @@ const Stack = createNativeStackNavigator();
 export default function MainStack() {
   return (
     <Stack.Navigator
-      initialRouteName= "MainTabs"
+      initialRouteName="MainTabs"
       screenOptions={{
         contentStyle: { backgroundColor: "white" },
         headerShown: false,
@@ -32,6 +32,9 @@ export default function MainStack() {
           key={index}
           name={route.name}
           component={route.component}
+          screenOptions={{
+            contentStyle: { backgroundColor: "white" },
+          }}
         />
       ))}
       <Stack.Screen
@@ -39,7 +42,6 @@ export default function MainStack() {
         component={BottomTabDriver}
         options={{ headerShown: false }}
       />
-
     </Stack.Navigator>
   );
 }
