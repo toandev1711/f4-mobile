@@ -18,7 +18,7 @@ const AuthLinks = ({ showGoogle, linkText, linkPress, extraLink }) => {
             {extraLink && (
                 <TouchableOpacity
                     style={styles.extraButton}
-                    onPress={() => navigation.navigate(extraLink.route)}
+                    onPress={() => navigation.navigate(extraLink.route, { driverID: "0475662c-ace0-4cfb-8334-4c2e46d4119c" })}
                 >
                     <Icon name={extraLink.icon} size={20} color="#6B46C1" />
                     <Text style={styles.extraText}>{extraLink.text}</Text>
