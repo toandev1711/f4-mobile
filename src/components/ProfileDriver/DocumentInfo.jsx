@@ -8,21 +8,26 @@ import {
 } from "react-native-heroicons/outline";
 
 const DocumentInfo = ({
-  type = "vehicle", // "vehicle" | "license" | "personal"
-  status,
+  type, // "vehicle" | "license" | "personal"
   title,
   id,
-  licensePlate,
-  vehicleType,
-  vehicleColor,
-  registrationDate,
-  name,
-  number,
-  birthDate,
-  gender,
-  residence,
-  issuedDate,
+
+  // vehicle
+  licensePlateNumber,
+  ownerName,
+  brand,
+  engineNumber,
+  vehicleTypeName,
+  issueDate,
+  createAt,
+  statusName,
+
+  // license
+  licenseClass,
+  place,
   expiryDate,
+  link,
+  // personal
   issuedPlace,
 }) => {
   return (
@@ -35,7 +40,7 @@ const DocumentInfo = ({
 
         <View className="flex-row items-center">
           <CheckCircleIcon className="w-5 h-5 mr-1" color="#10B981" />
-          <Text className="text-sm text-green-600 font-semibold">{status}</Text>
+          <Text className="text-sm text-green-600 font-semibold">{statusName}</Text>
         </View>
       </View>
 
@@ -44,35 +49,36 @@ const DocumentInfo = ({
           <>
             <Text className="text-sm text-gray-600 mb-1">
               <Text className="font-semibold">Biển số xe: </Text>
-              {licensePlate}
+              {licensePlateNumber}
+            </Text>
+            <Text className="text-sm text-gray-600 mb-1">
+              <Text className="font-semibold">Chủ xe: </Text>
+              {ownerName}
+            </Text>
+            <Text className="text-sm text-gray-600 mb-1">
+              <Text className="font-semibold">Thương hiệu: </Text>
+              {brand}
+            </Text>
+            <Text className="text-sm text-gray-600 mb-1">
+              <Text className="font-semibold">Số máy: </Text>
+              {engineNumber}
             </Text>
             <Text className="text-sm text-gray-600 mb-1">
               <Text className="font-semibold">Loại xe: </Text>
-              {vehicleType}
-            </Text>
-            <Text className="text-sm text-gray-600 mb-1">
-              <Text className="font-semibold">Màu xe: </Text>
-              {vehicleColor}
+              {vehicleTypeName}
             </Text>
             <View className="flex-row items-center mb-1">
               <CalendarIcon className="w-4 h-4 mr-2" color="#6B7280" />
               <Text className="text-sm text-gray-600">
-                <Text className="font-semibold">Ngày đăng ký: </Text>
-                {registrationDate}
+                <Text className="font-semibold">Ngày cấp: </Text>
+                {issueDate}
               </Text>
             </View>
             <View className="flex-row items-center mb-1">
               <CalendarIcon className="w-4 h-4 mr-2" color="#6B7280" />
               <Text className="text-sm text-gray-600">
-                <Text className="font-semibold">Ngày hết hạn: </Text>
-                {expiryDate}
-              </Text>
-            </View>
-            <View className="flex-row items-center mb-1">
-              <MapPinIcon className="w-4 h-4 mr-2" color="#6B7280" />
-              <Text className="text-sm text-gray-600">
-                <Text className="font-semibold">Nơi cấp: </Text>
-                {issuedPlace}
+                <Text className="font-semibold">Ngày tạo: </Text>
+                {createAt}
               </Text>
             </View>
           </>
@@ -84,11 +90,19 @@ const DocumentInfo = ({
               <Text className="font-semibold">Mã số GPLX: </Text>
               {id}
             </Text>
+            <Text className="text-sm text-gray-600 mb-1">
+              <Text className="font-semibold">Hạng GPLX: </Text>
+              {licenseClass}
+            </Text>
+            <Text className="text-sm text-gray-600 mb-1">
+              <Text className="font-semibold">Nơi cấp: </Text>
+              {place}
+            </Text>
             <View className="flex-row items-center mb-1">
               <CalendarIcon className="w-4 h-4 mr-2" color="#6B7280" />
               <Text className="text-sm text-gray-600">
                 <Text className="font-semibold">Ngày cấp: </Text>
-                {issuedDate}
+                {issueDate}
               </Text>
             </View>
             <View className="flex-row items-center mb-1">
@@ -104,41 +118,18 @@ const DocumentInfo = ({
         {type === "personal" && (
           <>
             <Text className="text-sm text-gray-600 mb-1">
-              <Text className="font-semibold">Họ và tên: </Text>
-              {name}
-            </Text>
-            <Text className="text-sm text-gray-600 mb-1">
-              <Text className="font-semibold">Số CMND/CCCD: </Text>
-              {number}
-            </Text>
-            <Text className="text-sm text-gray-600 mb-1">
-              <Text className="font-semibold">Ngày sinh: </Text>
-              {birthDate}
-            </Text>
-            <Text className="text-sm text-gray-600 mb-1">
-              <Text className="font-semibold">Giới tính: </Text>
-              {gender}
-            </Text>
-            <Text className="text-sm text-gray-600 mb-1">
-              <Text className="font-semibold">Nơi cư trú: </Text>
-              {residence}
+              <Text className="font-semibold">Số định danh: </Text>
+              {id}
             </Text>
             <View className="flex-row items-center mb-1">
               <CalendarIcon className="w-4 h-4 mr-2" color="#6B7280" />
               <Text className="text-sm text-gray-600">
                 <Text className="font-semibold">Ngày cấp: </Text>
-                {issuedDate}
+                {issueDate}
               </Text>
             </View>
             <View className="flex-row items-center mb-1">
               <CalendarIcon className="w-4 h-4 mr-2" color="#6B7280" />
-              <Text className="text-sm text-gray-600">
-                <Text className="font-semibold">Ngày hết hạn: </Text>
-                {expiryDate}
-              </Text>
-            </View>
-            <View className="flex-row items-center mb-1">
-              <MapPinIcon className="w-4 h-4 mr-2" color="#6B7280" />
               <Text className="text-sm text-gray-600">
                 <Text className="font-semibold">Nơi cấp: </Text>
                 {issuedPlace}

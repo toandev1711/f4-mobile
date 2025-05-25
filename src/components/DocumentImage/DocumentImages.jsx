@@ -1,36 +1,34 @@
 import React from "react";
-import { View, Text, Image, FlatList } from "react-native";
-import { PhotoIcon } from "react-native-heroicons/outline";
+import { View, Image, Text } from "react-native";
 
-const DocumentImages = ({ imageUrls }) => {
-  const renderItem = ({ item, index }) => (
-    <View key={index} className="w-full mb-4">
-      <Image
-        source={{
-          uri: item || "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/2300px-React-icon.svg.png",
-        }}
-        resizeMode="cover"
-        className="w-full h-48 rounded-md shadow"
-      />
-    </View>
-  );
-
+const DocumentImages = ({ frontPhoto, backPhoto }) => {
   return (
-    <View className="mb-6">
-      {imageUrls && imageUrls.length > 0 ? (
-        <FlatList
-          data={imageUrls}
-          renderItem={renderItem}
-          keyExtractor={(_, index) => index.toString()}
-          numColumns={1} // Bạn có thể chỉnh thành 2 hoặc 3 nếu cần dạng lưới
-          columnWrapperStyle={{ justifyContent: "space-between" }}
-        />
-      ) : (
-        <View className="items-center justify-center mt-6">
-          <PhotoIcon size={40} color="#9CA3AF" /> {/* text-gray-400 */}
-          <Text className="text-gray-500 mt-2">Không có ảnh giấy tờ nào.</Text>
-        </View>
-      )}
+    <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 16 }}>
+      <View style={{ flex: 1, marginRight: 8, alignItems: "center" }}>
+        <Text style={{ marginBottom: 8, fontWeight: "600", color: "#4B5563" }}>Mặt trước</Text>
+        {frontPhoto ? (
+          <Image
+            source={{ uri: frontPhoto }}
+            style={{ width: "100%", height: 180, borderRadius: 8 }}
+            resizeMode="contain"
+          />
+        ) : (
+          <Text style={{ color: "#9CA3AF" }}>Không có ảnh</Text>
+        )}
+      </View>
+
+      <View style={{ flex: 1, marginLeft: 8, alignItems: "center" }}>
+        <Text style={{ marginBottom: 8, fontWeight: "600", color: "#4B5563" }}>Mặt sau</Text>
+        {backPhoto ? (
+          <Image
+            source={{ uri: backPhoto }}
+            style={{ width: "100%", height: 180, borderRadius: 8 }}
+            resizeMode="contain"
+          />
+        ) : (
+          <Text style={{ color: "#9CA3AF" }}>Không có ảnh</Text>
+        )}
+      </View>
     </View>
   );
 };

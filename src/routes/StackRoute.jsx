@@ -13,6 +13,9 @@ import OtpVerificationScreen from "../screens/UserRegister/OtpVerificationScreen
 import ChatDetailScreen from "../screens/Chat/ChatDetailScreen";
 import ActivityHistoryScreen from "../screens/Activity/ActivityHistoryScreen";
 import HistoryDetailScreen from "../screens/Activity/HistoryDetailScreen";
+import UpdateVehicleDocument from "../screens/ProfileDriver/Documents/UpdateVehicleDocument";
+import UpdatePersonalDocument from "../screens/ProfileDriver/Documents/UpdatePersonalDocument";
+import UpdateLicenseDocument from "../screens/ProfileDriver/Documents/UpdateLicenseDocument";
 const StackRoutes = [
   {
     name: "EditProfile",
@@ -92,6 +95,21 @@ const StackRoutes = [
     component: HistoryDetailScreen,
     options: { title: "activity", headerShown: false },
   },
+  {
+    name: "UpdateVehicleDocument",
+    component: UpdateVehicleDocument,
+    options: { title: "UpdateVehicleDocument", headerShown: false },
+  },
+  {
+    name: "UpdateLicenseDocument",
+    component: UpdateLicenseDocument,
+    options: { title: "UpdateLicenseDocument", headerShown: false },
+  },
+  {
+    name: "UpdatePersonalDocument",
+    component: UpdatePersonalDocument,
+    options: { title: "UpdatePersonalDocument", headerShown: false },
+  }, 
 ];
 
 export default StackRoutes;
