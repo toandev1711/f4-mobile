@@ -19,24 +19,11 @@ import FormWrapper from "../../components/SignIUComponents/FormWrapper";
 import PhoneInput from "../../components/SignIUComponents/PhoneInput";
 import InputField from "../../components/SignIUComponents/InputField";
 import Button from "../../components/SignIUComponents/Button";
-import { login } from "../../api/auth/loginAPI";
-import { jwtDecode } from "jwt-decode";
-
-const handleLogin = async () => {
-  try {
-    const data = await login({
-      phone: "0123456789",
-      password: "mypassword",
-    });
-    console.log("Đăng nhập thành công:", data);
-  } catch (error) {
-    console.error("Đăng nhập thất bại:", error.message);
-  }
-};
-
+import { useAuth } from "../../context/AuthContext";
 const { width } = Dimensions.get("window");
 
 const LoginScreen = () => {
+  const { login } = useAuth();
   const {
     control,
     handleSubmit,
@@ -68,33 +55,15 @@ const LoginScreen = () => {
     }
   }, [phone, password]);
 
-  function hasRoleUser(scopeString) {
-    if (typeof scopeString !== "string") return false;
-
-    const roles = scopeString.trim().split(/\s+/); // tách bằng khoảng trắng
-    return roles.includes("ROLE_USER");
-  }
-
   const onSubmit = async (data) => {
     setIsSubmitting(true);
     try {
-      const response = await login(data);
-      const token = response.result.jwt;
-      const decoded = jwtDecode(token);
-      const isUser = hasRoleUser(decoded.scope);
+      await login(data);
       Toast.show({
         type: "success",
         text1: "Đăng nhập thành công!",
-      });
-
-      setTimeout(() => {
-        setIsSubmitting(false);
-        if (isUser) {
-          navigation.navigate("MainTabs");
-        } else{
-          navigation.navigate("DriverTabs");
-        }
-      }, 1000);
+      })
+    setIsSubmitting(false);
     } catch (error) {
       const errorMessage = "Đăng nhập thất bại";
       Toast.show({

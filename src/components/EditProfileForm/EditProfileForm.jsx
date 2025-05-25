@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -6,29 +6,35 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
-} from 'react-native';
-import { useRoute, useNavigation } from '@react-navigation/native';
-import Toast from 'react-native-toast-message';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import ValidationMessage from '../ValidationMessage/ValidationMessage'; 
-import Header from '../Header/Header'; 
-
+} from "react-native";
+import { useRoute, useNavigation } from "@react-navigation/native";
+import Toast from "react-native-toast-message";
+import Icon from "react-native-vector-icons/FontAwesome";
+import ValidationMessage from "../ValidationMessage/ValidationMessage";
+import Header from "../Header/Header";
+import { updateProfile } from "../../api/user/UpdateUser";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useAuth } from "../../context/AuthContext";
+import { set } from "lodash";
 const EditProfileForm = () => {
-  const specialChars = /[àáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ@#$%^&*(!)]/;
+  const specialChars =
+    /[àáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ@#$%^&*(!)]/;
   const route = useRoute();
   const navigation = useNavigation();
-  const { label, type, value, note } = route.params || {};
-  const [oldPassword, setOldPassword] = useState('');
+  const { label, type, value, note, engLabel } = route.params || {};
+  const [oldPassword, setOldPassword] = useState("");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const [fieldValue, setFieldValue] = useState(type === 'password' ? '' : value);
-  const [otp, setOtp] = useState('');
-  const [step, setStep] = useState('edit');
+  const [fieldValue, setFieldValue] = useState(
+    type === "password" ? "" : value
+  );
+  const [otp, setOtp] = useState("");
+  const [step, setStep] = useState("edit");
   const [tries, setTries] = useState(0);
-  const correctOtp = '123456';
+  const correctOtp = "123456";
   const checkLength = fieldValue.length >= 8;
   const hasUpperCase = /[A-Z]/.test(fieldValue);
   const hasSpecialChar = specialChars.test(fieldValue);
-
+  const { setUser } = useAuth();
   if (!label || !type) {
     return (
       <View className="p-4">
@@ -37,36 +43,125 @@ const EditProfileForm = () => {
     );
   }
 
-  const handleSaveInformation = () => {
-    console.log('Saving information...');
-    if (label === 'Phone Number') {
-      const isValid = /^0\d{9}$/.test(fieldValue);
-      if (!isValid) {
-        Toast.show({ type: 'error', text1: 'Số điện thoại không hợp lệ', position: 'bottom', bottomOffset: 20 });
-        return;
+  const handleSaveInformation = async () => {
+    if (fieldValue !== value) {
+      try {
+        const token = await AsyncStorage.getItem("token");
+        const userID = await AsyncStorage.getItem("userID");
+        if (engLabel === "password") {
+          if (!oldPassword.trim() || !fieldValue.trim()) {
+            Toast.show({
+              type: "error",
+              text1: "Vui lòng nhập đầy đủ mật khẩu cũ và mới",
+              position: "bottom",
+              bottomOffset: 20,
+            });
+            return;
+          }
+        
+        if (!checkLength || !hasUpperCase || !hasSpecialChar) {
+          Toast.show({
+            type: "error",
+            text1: "Mật khẩu mới chưa đủ mạnh",
+            text2: "Cần ít nhất 8 ký tự, 1 chữ hoa và 1 ký tự đặc biệt",
+            position: "bottom",
+            bottomOffset: 20,
+          });
+          return;
+        }
       }
-      Toast.show({ type: 'success', text1: `OTP đã gửi đến ${fieldValue}` , position: 'bottom', bottomOffset: 20 });
-      setStep('otp');
-    } else {
-      navigation.goBack();
+        if (engLabel === "phone") {
+          const isValid = /^0\d{9}$/.test(fieldValue);
+          if (!isValid) {
+            Toast.show({
+              type: "error",
+              text1: "Số điện thoại không hợp lệ",
+              position: "bottom",
+              bottomOffset: 20,
+            });
+            return;
+          }
+          Toast.show({
+            type: "success",
+            text1: `OTP đã gửi đến ${fieldValue}`,
+            position: "bottom",
+            bottomOffset: 20,
+          });
+          setStep("otp");
+          return;
+        }
+
+        const response = await updateProfile({
+          token,
+          key: engLabel,
+          value: fieldValue,
+          userID,
+        });
+
+        await AsyncStorage.setItem("user", JSON.stringify(response));
+        setUser(response);
+        Toast.show({
+          type: "success",
+          text1: `Thông tin đã được cập nhật`,
+          position: "bottom",
+          bottomOffset: 20,
+        });
+        setTimeout(() => {
+          navigation.goBack();
+        }, 1000);
+      } catch (error) {
+        Toast.show({
+          type: "error",
+          text1: "Đã xảy ra lỗi khi cập nhật",
+          position: "bottom",
+          bottomOffset: 20,
+        });
+      }
     }
   };
 
-  const handleOtpSubmit = () => {
+  const handleOtpSubmit = async () => {
+    const token = await AsyncStorage.getItem("token");
+    const userID = await AsyncStorage.getItem("userID");
     if (otp === correctOtp) {
-      Toast.show({ type: 'success', text1: 'Xác thực thành công!' , position: 'bottom', bottomOffset: 20 });
-      navigation.goBack();
+      Toast.show({
+        type: "success",
+        text1: "Xác thực thành công!",
+        position: "bottom",
+        bottomOffset: 20,
+      });
+      const response = await updateProfile({
+        token,
+        key: engLabel,
+        value: fieldValue,
+        userID,
+      });
+      await AsyncStorage.setItem("user", JSON.stringify(response));
+      setUser(response);
+      setTimeout(() => {
+        navigation.goBack();
+      }, 1000);
     } else {
       const newTries = tries + 1;
       setTries(newTries);
       if (newTries >= 3) {
-        Toast.show({ type: 'error', text1: 'Sai quá 3 lần. Nhập lại số ĐT.', position: 'bottom', bottomOffset: 20  });
-        setStep('edit');
-        setOtp('');
-        setFieldValue('');
+        Toast.show({
+          type: "error",
+          text1: "Sai quá 3 lần. Nhập lại số ĐT.",
+          position: "bottom",
+          bottomOffset: 20,
+        });
+        setStep("edit");
+        setOtp("");
+        setFieldValue("");
         setTries(0);
       } else {
-        Toast.show({ type: 'error', text1: `Mã OTP sai. Còn ${3 - newTries} lần thử.` , position: 'bottom', bottomOffset: 20 });
+        Toast.show({
+          type: "error",
+          text1: `Mã OTP sai. Còn ${3 - newTries} lần thử.`,
+          position: "bottom",
+          bottomOffset: 20,
+        });
       }
     }
   };
@@ -74,16 +169,18 @@ const EditProfileForm = () => {
   return (
     <KeyboardAvoidingView
       className="flex-1 p-4"
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      behavior={Platform.OS === "ios" ? "padding" : undefined}
     >
       <Toast />
-      {step === 'edit' && (
+      {step === "edit" && (
         <>
           <Header value={label} tail="Done" onClick={handleSaveInformation} />
           <View className="mt-10">
-            {type === 'password' && (
+            {type === "password" && (
               <View className="mb-6">
-                <Text className="text-sm text-gray-500 mb-1">Nhập mật khẩu cũ</Text>
+                <Text className="text-sm text-gray-500 mb-1">
+                  Nhập mật khẩu cũ
+                </Text>
                 <TextInput
                   secureTextEntry
                   value={oldPassword}
@@ -93,23 +190,22 @@ const EditProfileForm = () => {
                 />
               </View>
             )}
-
             <Text className="text-sm text-gray-500 mb-1">Nhập {label}</Text>
             <View className="relative">
               <TextInput
                 value={fieldValue}
                 onChangeText={setFieldValue}
                 placeholder={`Nhập ${label}`}
-                secureTextEntry={type === 'password' && !isPasswordVisible}
+                secureTextEntry={type === "password" && !isPasswordVisible}
                 className="border border-gray-300 rounded-lg px-4 py-3.5 pr-12"
               />
-              {type === 'password' && (
+              {type === "password" && (
                 <TouchableOpacity
                   onPress={() => setIsPasswordVisible((prev) => !prev)}
                   className="absolute right-3 top-1/2 -translate-y-3.5"
                 >
                   <Icon
-                    name={isPasswordVisible ? 'eye' : 'eye-slash'}
+                    name={isPasswordVisible ? "eye" : "eye-slash"}
                     size={20}
                     color="#999"
                   />
@@ -117,18 +213,27 @@ const EditProfileForm = () => {
               )}
             </View>
             <Text className="text-xs text-gray-500 mt-4">{note}</Text>
-            {type === 'password' && (
+            {type === "password" && (
               <View className="mt-3 space-y-1">
-                <ValidationMessage condition={checkLength} message="Nhập đủ 8 kí tự" />
-                <ValidationMessage condition={hasUpperCase} message="Bao gồm chữ hoa" />
-                <ValidationMessage condition={hasSpecialChar} message="Bao gồm kí tự đặc biệt" />
+                <ValidationMessage
+                  condition={checkLength}
+                  message="Nhập đủ 8 kí tự"
+                />
+                <ValidationMessage
+                  condition={hasUpperCase}
+                  message="Bao gồm chữ hoa"
+                />
+                <ValidationMessage
+                  condition={hasSpecialChar}
+                  message="Bao gồm kí tự đặc biệt"
+                />
               </View>
             )}
           </View>
         </>
       )}
 
-      {step === 'otp' && (
+      {step === "otp" && (
         <View className="mt-10">
           <Text className="text-xl font-semibold mb-4">Nhập mã OTP</Text>
           <TextInput

@@ -9,13 +9,14 @@
         }
       ],
       [
-         "expo-location",
+        "expo-location",
         {
           "locationAlwaysAndWhenInUsePermission": "Cho phép F4 sử dụng vị trí của bạn",
-          "isAndroidBackgroundLocationEnabled" : true,
-          "isIosBackgroundLocationEnabled" : true
+          "isAndroidBackgroundLocationEnabled": true,
+          "isIosBackgroundLocationEnabled": true
         }
-      ]
+      ],
+      "expo-font"
     ],
     "name": "f4-mobile",
     "slug": "f4-mobile",
@@ -32,12 +33,12 @@
     },
     "ios": {
       "supportsTablet": true,
-      "googleMapsApiKey" : "AIzaSyD5GUOMMrDY5Ml8JOQ5j7z7p9f8GaGCDBg"
+      "googleMapsApiKey": "AIzaSyD5GUOMMrDY5Ml8JOQ5j7z7p9f8GaGCDBg"
     },
     "android": {
-       "googleMaps": {
-          "apiKey": "AIzaSyD5GUOMMrDY5Ml8JOQ5j7z7p9f8GaGCDBg"
-        },
+      "googleMaps": {
+        "apiKey": "AIzaSyD5GUOMMrDY5Ml8JOQ5j7z7p9f8GaGCDBg"
+      },
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
@@ -56,7 +57,5 @@
     "web": {
       "favicon": "./assets/favicon.png"
     }
-  
-  
   }
 }
