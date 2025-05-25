@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     },
     progressContainer: {
         height: 8,
-        backgroundColor: '#E5E7EB',
+        backgroundColor: '#FFFFFF',
         borderRadius: 4,
         overflow: 'hidden'
     },

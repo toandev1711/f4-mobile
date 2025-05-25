@@ -19,7 +19,7 @@ const Button = ({ title, onPress, loading }) => {
 
 const styles = StyleSheet.create({
     button: {
-        backgroundColor: '#6B46C1',
+        backgroundColor: '#02b34f',
         paddingVertical: 12,
         borderRadius: 8,
         alignItems: 'center',

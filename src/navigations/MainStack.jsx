@@ -6,6 +6,10 @@ import LoginScreen from "../screens/UserLogin/LoginScreen";
 import CustomerSignupScreen from "../screens/UserRegister/CustomerRegisterScreen";
 import DriverRegistrationWizard from "../screens/UserRegister/DriverRegisterScreen";
 import BottomTabDriver from "./BottomTabDriver";
+import CCCDUploadScreen from "../screens/UserRegister/CCCDUploadScreen";
+import LicenseInfoScreen from "../screens/UserRegister/LicenseInfoScreen";
+import PersonalInfoScreen from "../screens/UserRegister/PersonalInfoScreen";
+import VehicleInfoScreen from "../screens/UserRegister/VehicleInfoScreen";
 const Stack = createNativeStackNavigator();
 
 export default function MainStack() {
@@ -27,9 +31,29 @@ export default function MainStack() {
         component={CustomerSignupScreen}
         options={{ headerShown: false }}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         name="DriverRegister"
         component={DriverRegistrationWizard}
+        options={{ headerShown: false }}
+      /> */}
+      <Stack.Screen
+        name="DriverRegister"
+        component={CCCDUploadScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="LicenseInformation"
+        component={LicenseInfoScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="PersonalInformation"
+        component={PersonalInfoScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="VehicleInformation"
+        component={VehicleInfoScreen}
         options={{ headerShown: false }}
       />
       <Stack.Screen
