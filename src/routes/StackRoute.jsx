@@ -11,6 +11,8 @@ import TransportScreen from "../screens/Transport/TransportScreen";
 import SearchLocationScreen from "../screens/SearchLocation/SearchLocationScreen";
 import OtpVerificationScreen from "../screens/UserRegister/OtpVerificationScreen";
 import ChatDetailScreen from "../screens/Chat/ChatDetailScreen";
+import ActivityHistoryScreen from "../screens/Activity/ActivityHistoryScreen";
+import HistoryDetailScreen from "../screens/Activity/HistoryDetailScreen";
 const StackRoutes = [
   {
     name: "EditProfile",
@@ -76,10 +78,20 @@ const StackRoutes = [
     options: { title: "My Profile", headerShown: false },
   },
   {
-    name: 'ChatDetail',
+    name: "ChatDetail",
     component: ChatDetailScreen,
     options: { title: "My Profile", headerShown: false },
-  }
+  },
+  {
+    name: "ActivityHistory",
+    component: ActivityHistoryScreen,
+    options: { title: "activity", headerShown: false },
+  },
+  {
+    name: "ActivityHistoryDetail",
+    component: HistoryDetailScreen,
+    options: { title: "activity", headerShown: false },
+  },
 ];
 
 export default StackRoutes;

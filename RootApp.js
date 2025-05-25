@@ -32,6 +32,7 @@ export default RootApp = () => {
     <SafeAreaView style={{ flex: 1, backgroundColor: statusBarColor }}>
       <NavigationContainer>
         {user ? <MainStack /> : <AuthStack />}
+        {/* <MainStack /> */}
       </NavigationContainer>
     </SafeAreaView>
   );

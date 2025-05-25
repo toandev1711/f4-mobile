@@ -55,7 +55,7 @@ export default function ChatListScreen() {
 
   return (
     <View className="bg-white flex-1">
-      <View className="py-6 bg-green-500 flex-row items-center justify-between">
+      <View className="py-4 bg-green-500 flex-row items-center justify-between">
         <Text
           style={{ fontFamily: "facebook-sans-bold" }}
           className="text-3xl text-white ml-4"
