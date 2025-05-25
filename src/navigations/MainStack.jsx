@@ -31,11 +31,6 @@ export default function MainStack() {
         component={CustomerSignupScreen}
         options={{ headerShown: false }}
       />
-      {/* <Stack.Screen
-        name="DriverRegister"
-        component={DriverRegistrationWizard}
-        options={{ headerShown: false }}
-      /> */}
       <Stack.Screen
         name="DriverRegister"
         component={CCCDUploadScreen}
