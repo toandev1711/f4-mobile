@@ -184,7 +184,6 @@ const UpdateLicenseDocument = ({ route }) => {
         onImageChange={setBackImage}
         label="Ảnh mặt sau"
       />
-
       <Button title="Cập nhật giấy phép" onPress={handleUpdate} loading={loading} />
     </ScrollView>
   );

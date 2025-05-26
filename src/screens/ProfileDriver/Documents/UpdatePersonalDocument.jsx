@@ -133,12 +133,6 @@ const UpdatePersonalDocument = ({ route }) => {
       <DatePickerField
         label="Ngày tạo"
         date={createAt}
-        onShowPicker={() => setShowCreateAtPicker(true)}
-        showPicker={showCreateAtPicker}
-        onChange={(event, selectedDate) => {
-          setShowCreateAtPicker(Platform.OS === "ios");
-          if (selectedDate) setCreateAt(selectedDate);
-        }}
       />
 
       <ImagePickers

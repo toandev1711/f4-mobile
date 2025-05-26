@@ -12,13 +12,13 @@ import CarImg from "./CarImg";
 const getStatusColor = (status) => {
   switch (status.toLowerCase()) {
     case "pending":
-      return "#F59E0B"; // orange
+      return "#F59E0B"; 
     case "approved":
-      return "#10B981"; // green
+      return "#10B981"; 
     case "cancelled":
-      return "#EF4444"; // red
+      return "#EF4444"; 
     default:
-      return "#6B7280"; // gray for unknown status
+      return "#6B7280";
   }
 };
 
