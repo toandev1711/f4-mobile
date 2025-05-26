@@ -1,19 +1,29 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient'; // Import LinearGradient
 
 const ServiceCards = () => {
-  const navigation = useNavigation()
+  const navigation = useNavigation();
   const handlePress = () => {
-    navigation.navigate("Transport")
+    navigation.navigate("Transport");
   };
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.card} onPress={handlePress}>
-        <Icon name="car" size={32} color="#7C3AED" style={styles.itemImage} />
-        <Text style={styles.itemText}>Đặt xe ngay</Text>
+      <TouchableOpacity onPress={handlePress}>
+        <LinearGradient
+          colors={["#4dbccf", "#5cbaa2"]}
+          style={styles.card}
+        >
+          <View style={styles.cardContent}>
+            <Image
+              source={require('../../../assets/img/Locationicon.png')} // Thay bằng đường dẫn ảnh thực tế
+              style={styles.itemImage}
+            />
+            <Text style={styles.itemText}>Đặt xe ngay</Text>
+          </View>
+        </LinearGradient>
       </TouchableOpacity>
     </View>
   );
@@ -24,17 +34,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     padding: 10,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: '#FFFFFF',
     marginTop: 10,
-    // Optional: để fill space nếu muốn
     flex: 1,
+    marginHorizontal: 10,
   },
   card: {
-    flex: 1, // fill rộng
+    flex: 1,
     alignItems: 'center',
-    padding: 10,
-    backgroundColor: 'white',
-    borderRadius: 8,
+    paddingHorizontal: 50,
+    borderRadius: 15,
     borderWidth: 1,
     borderColor: '#D3D3D3',
     shadowColor: '#000',
@@ -43,13 +52,23 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     elevation: 2,
   },
+  cardContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 10,
+    width: '100%',
+    height: '100%',
+  },
   itemImage: {
-    marginBottom: 8,
+    width: 50,
+    height: 50,
+    marginRight: 10,
   },
   itemText: {
-    marginTop: 8,
     color: '#444',
-    fontSize: 12,
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });
 

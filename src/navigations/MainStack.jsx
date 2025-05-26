@@ -4,7 +4,6 @@ import BottomTab from "./BottomTab";
 import StackRoutes from "../routes/StackRoute";
 import LoginScreen from "../screens/UserLogin/LoginScreen";
 import CustomerSignupScreen from "../screens/UserRegister/CustomerRegisterScreen";
-import DriverRegistrationWizard from "../screens/UserRegister/DriverRegisterScreen";
 import BottomTabDriver from "./BottomTabDriver";
 import CCCDUploadScreen from "../screens/UserRegister/CCCDUploadScreen";
 import LicenseInfoScreen from "../screens/UserRegister/LicenseInfoScreen";

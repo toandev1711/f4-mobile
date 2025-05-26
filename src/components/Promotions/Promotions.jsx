@@ -32,7 +32,7 @@ const Promotions = () => {
           <Text style={styles.viewAll}>Xem tất cả</Text>
         </TouchableOpacity>
       </View>
-      
+
       {/* Render danh sách các card */}
       {promotions.map((promo, index) => (
         <PromotionCard
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
   container: {
     padding: 10,
     marginTop: 10,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: '#FFFFFF',
   },
   header: {
     flexDirection: 'row',
@@ -72,10 +72,12 @@ const styles = StyleSheet.create({
   headerText: {
     fontSize: 18,
     color: '#444',
+    marginLeft: 10,
   },
   viewAll: {
     color: '#4B0082',
     fontSize: 14,
+    marginRight: 10,
   },
   card: {
     marginTop: 10,

@@ -11,12 +11,14 @@ const Footer = () => {
 
 const styles = StyleSheet.create({
     container: {
+        marginTop: 5,
         padding: 16,
         alignItems: 'center',
-        backgroundColor: '#FFFFFF'
+        backgroundColor: '#FFFFFF',
+        fontStyle: 'italic'
     },
     text: {
-        fontSize: 12,
+        fontSize: 14,
         color: '#666'
     }
 });

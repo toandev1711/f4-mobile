@@ -65,7 +65,7 @@ export const AuthProvider = ({ children }) => {
       setToken(null);
       await AsyncStorage.removeItem("user");
       await AsyncStorage.removeItem("token");
-    } catch (error) {}
+    } catch (error) { }
   };
 
   return (
