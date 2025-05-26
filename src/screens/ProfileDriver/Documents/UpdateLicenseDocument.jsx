@@ -11,6 +11,7 @@ import {
 import * as ImagePicker from "expo-image-picker";
 import { updateImage } from "../../../api/DriverInfo/saveImg";
 import { updateLicenseData } from "../../../api/DriverInfo/updateLicence";
+import { detectLicenseFromImage } from "../../../api/DriverInfo/readImg"; // đảm bảo đã import
 import { useNavigation } from "@react-navigation/native";
 import InputField from "../../../components/SignIUComponents/InputField";
 import Button from "../../../components/SignIUComponents/Button";
@@ -62,6 +63,71 @@ const UpdateLicenseDocument = ({ route }) => {
     return `${year}-${month}-${day}`;
   };
 
+  const parseDateFromString = (str) => {
+    if (!str) return new Date();
+    if (str.includes("/")) {
+      const parts = str.split("/");
+      if (parts.length === 3) {
+        return new Date(+parts[2], parts[1] - 1, +parts[0]);
+      }
+    } else if (str.includes("-")) {
+      return new Date(str);
+    }
+    if (str.length === 8) {
+      const day = parseInt(str.substring(0, 2));
+      const month = parseInt(str.substring(2, 4)) - 1;
+      const year = parseInt(str.substring(4, 8));
+      return new Date(year, month, day);
+    }
+    return new Date();
+  };
+
+  const handleDetectFromImage = async (image) => {
+  try {
+    if (!image?.uri) {
+      Alert.alert("Lỗi", "Không có ảnh để nhận dạng.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("image", {
+      uri: image.uri,
+      name: "license.jpg",
+      type: "image/jpeg",
+    });
+
+    const response = await detectLicenseFromImage(formData);
+    console.log("Kết quả nhận dạng ảnh:", response);
+    const resultArray = response.result || [];
+    const result = resultArray.reduce((acc, obj) => ({ ...acc, ...obj }), {});
+    if (result["number"]) {
+      setLicenseNumber(result["number"]);
+    }
+    if (result["class"]) {
+      setLicenseClass(result["class"]);
+    }
+    if (result["nationality"]) {
+      setNationality(result["nationality"]);
+    }
+    if (result["place"]) {
+      setPlace(result["place"]);
+    }
+    if (result["issue"]) {
+      const cleanDate = result["issue"].split(" ")[0];
+      setIssueDate(parseDateFromString(cleanDate));
+    }
+    if (result["expiry"]) {
+      const cleanDate = result["expiry"].split(" ")[0];
+      setExpiryDate(parseDateFromString(cleanDate));
+    }
+
+  } catch (error) {
+    console.error("Lỗi nhận dạng ảnh:", error);
+    Alert.alert("Lỗi", "Không thể trích xuất dữ liệu từ ảnh.");
+  }
+};
+
+
   const handleUpdate = async () => {
     try {
       setLoading(true);
@@ -92,7 +158,7 @@ const UpdateLicenseDocument = ({ route }) => {
         const result = await updateImage(formData);
         backPhotoUrl = result;
       }
-      const CreateAt = formatDate(new Date());
+      const createAt = formatDate(new Date());
       const updatedData = {
         licenseNumber,
         licenseClass,
@@ -102,9 +168,9 @@ const UpdateLicenseDocument = ({ route }) => {
         expiryDate: formatDate(expiryDate),
         frontPhoto: frontPhotoUrl,
         backPhoto: backPhotoUrl,
-        CreateAt,
+        createAt,
       };
-
+      console.log("Dữ liệu gửi đi:", updatedData);
       await updateLicenseData(licenseCarId, updatedData);
       Alert.alert("Thành công", "Cập nhật giấy phép thành công!");
       navigation.goBack();
@@ -177,6 +243,7 @@ const UpdateLicenseDocument = ({ route }) => {
         image={frontImage}
         onImageChange={setFrontImage}
         label="Ảnh mặt trước"
+        onAfterPick={handleDetectFromImage}
       />
 
       <ImagePickers
@@ -184,6 +251,7 @@ const UpdateLicenseDocument = ({ route }) => {
         onImageChange={setBackImage}
         label="Ảnh mặt sau"
       />
+
       <Button title="Cập nhật giấy phép" onPress={handleUpdate} loading={loading} />
     </ScrollView>
   );

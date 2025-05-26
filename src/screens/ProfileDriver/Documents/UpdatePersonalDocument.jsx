@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
+import { detectCccdFromImage } from "../../../api/DriverInfo/readImg";
 import { updateImage } from "../../../api/DriverInfo/saveImg";
 import { updatePersonalData } from "../../../api/DriverInfo/updateCccd";
 
@@ -25,7 +26,7 @@ const UpdatePersonalDocument = ({ route }) => {
     createAt: paramCreateAt,
     frontPhoto: paramFrontPhoto,
     backPhoto: paramBackPhoto,
-    id: paramIdentifierNumber, 
+    id: paramIdentifierNumber,
   } = route.params || {};
 
   const [identifierNumber, setIdentifierNumber] = useState(paramIdentifierNumber || "");
@@ -37,7 +38,6 @@ const UpdatePersonalDocument = ({ route }) => {
 
   const [showIssuePicker, setShowIssuePicker] = useState(false);
   const [showCreateAtPicker, setShowCreateAtPicker] = useState(false);
-
   const [loading, setLoading] = useState(false);
 
   function parseDate(str) {
@@ -54,6 +54,62 @@ const UpdatePersonalDocument = ({ route }) => {
     return `${year}-${month}-${day}`;
   };
 
+  const parseDateFromString = (str) => {
+    if (!str) return new Date();
+    if (str.includes("/")) {
+      const parts = str.split("/");
+      if (parts.length === 3) {
+        return new Date(+parts[2], parts[1] - 1, +parts[0]);
+      }
+    } else if (str.includes("-")) {
+      return new Date(str);
+    }
+    if (str.length === 8) {
+      const day = parseInt(str.substring(0, 2));
+      const month = parseInt(str.substring(2, 4)) - 1;
+      const year = parseInt(str.substring(4, 8));
+      return new Date(year, month, day);
+    }
+    return new Date();
+  };
+  const handleDetectFromImage = async (image) => {
+  try {
+    if (!image?.uri) {
+      Alert.alert("Lỗi", "Không có ảnh để nhận dạng.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("image", {
+      uri: image.uri,
+      name: "license.jpg",
+      type: "image/jpeg",
+    });
+
+    const response = await detectCccdFromImage(formData);
+
+    console.log("Kết quả nhận dạng ảnh:", response);
+
+    const result = response.result || {};
+    const idNumber = result["Mã số CCCD"];
+    const rawIssueDate = result["Ngày cấp"];
+
+    if (idNumber) {
+      setIdentifierNumber(idNumber);
+    }
+
+    if (rawIssueDate) {
+      const cleanDate = rawIssueDate.split(" ")[0]; 
+      setIssueDate(parseDateFromString(cleanDate));
+    } else {
+      Alert.alert("Thông báo", "Không trích xuất được ngày cấp.");
+    }
+
+  } catch (error) {
+    console.error("Lỗi nhận dạng ảnh:", error);
+    Alert.alert("Lỗi", "Không thể trích xuất dữ liệu từ ảnh.");
+  }
+};
   const handleUpdate = async () => {
     try {
       setLoading(true);
@@ -61,7 +117,6 @@ const UpdatePersonalDocument = ({ route }) => {
       let frontPhotoUrl = frontImage.uri;
       let backPhotoUrl = backImage.uri;
 
-      // Nếu người dùng chọn ảnh mới thì upload lại
       if (frontImage.file) {
         const formData = new FormData();
         formData.append("newImage", {
@@ -85,16 +140,17 @@ const UpdatePersonalDocument = ({ route }) => {
         const result = await updateImage(formData);
         backPhotoUrl = result;
       }
-      const createAt = formatDate(new Date());
+
+      const createAtNow = formatDate(new Date());
+
       const updatedData = {
         identifierNumber,
         issueDate: formatDate(issueDate),
-        createAt,
+        createAt: createAtNow,
         frontPhoto: frontPhotoUrl,
         backPhoto: backPhotoUrl,
       };
 
-      // Gọi API cập nhật, identifierId hoặc id để xác định bản ghi (nếu API cần)
       await updatePersonalData(updatedData);
 
       Alert.alert("Thành công", "Cập nhật giấy phép thành công!");
@@ -139,6 +195,7 @@ const UpdatePersonalDocument = ({ route }) => {
         image={frontImage}
         onImageChange={setFrontImage}
         label="Ảnh mặt trước"
+        onAfterPick={handleDetectFromImage}
       />
 
       <ImagePickers
