@@ -52,8 +52,8 @@ const Suggestions = () => {
 };
 
 const styles = StyleSheet.create({
-  container: { padding: 10, backgroundColor: '#F5F5F5' },
-  title: { fontSize: 18, color: '#444', marginBottom: 10 },
+  container: { padding: 10, backgroundColor: '#FFFFFF', marginHorizontal: 10 },
+  title: { fontSize: 18, color: '#444', marginBottom: 10, marginLeft: 10 },
   suggestion: {
     flexDirection: 'row',
     alignItems: 'center',

@@ -66,7 +66,7 @@ const VehicleInfoScreen = () => {
                         label: item.vehicleTypeName
                     })));
                 } else {
-                    throw new Error('Không lấy được danh sách loại xe');
+                    Toast.show({ type: 'error', text1: 'Lỗi khi lấy danh sách loại xe!' });
                 }
             } catch (error) {
                 console.error('Lỗi khi lấy vehicle types:', error);
@@ -175,7 +175,7 @@ const VehicleInfoScreen = () => {
                     <ActivityIndicator size="small" color="#6B46C1" />
                 ) : (
                     <View style={styles.imagePickerContent}>
-                        <Icon name="camera-plus" size={24} color="#6B46C1" />
+                        <Icon name="camera-plus" size={24} color="#02b34f" />
                         <Text style={styles.imagePickerText}>
                             {formData[key] ? `Thay ${label}` : `Tải lên ${label}`}
                         </Text>
@@ -206,7 +206,7 @@ const VehicleInfoScreen = () => {
             if (response.code === 1000) {
                 return true;
             } else {
-                throw new Error('Không thể gửi thông tin xe');
+                Toast.show({ type: 'error', text1: 'Lỗi khi gửi thông tin xe!' });
             }
         } catch (error) {
             console.error('Lỗi khi gửi vehicle details:', error);
@@ -259,6 +259,7 @@ const VehicleInfoScreen = () => {
                                     render={({ field: { onChange, value } }) => (
                                         <InputField
                                             type="text"
+                                            label={'Biển số xe'}
                                             placeholder="Biển số xe"
                                             value={value}
                                             onChangeText={onChange}
@@ -273,6 +274,7 @@ const VehicleInfoScreen = () => {
                                     render={({ field: { onChange, value } }) => (
                                         <InputField
                                             type="text"
+                                            label={'Tên chủ xe'}
                                             placeholder="Tên chủ xe"
                                             value={value}
                                             onChangeText={onChange}
@@ -287,6 +289,7 @@ const VehicleInfoScreen = () => {
                                     render={({ field: { onChange, value } }) => (
                                         <InputField
                                             type="text"
+                                            label={'Hãng xe'}
                                             placeholder="Hãng xe"
                                             value={value}
                                             onChangeText={onChange}
@@ -301,6 +304,7 @@ const VehicleInfoScreen = () => {
                                     render={({ field: { onChange, value } }) => (
                                         <InputField
                                             type="text"
+                                            label={'Số máy'}
                                             placeholder="Số máy"
                                             value={value}
                                             onChangeText={onChange}
@@ -321,7 +325,7 @@ const VehicleInfoScreen = () => {
                                                 <Text style={[styles.dateInput, errors.issueDate ? styles.inputError : null]}>
                                                     {value || 'Chọn ngày cấp'}
                                                 </Text>
-                                                <Icon name="calendar" size={20} color="#6B46C1" style={styles.icon} />
+                                                <Icon name="calendar" size={20} color="#02b34f" style={styles.icon} />
                                             </TouchableOpacity>
                                             {errors.issueDate && <Text style={styles.errorText}>{errors.issueDate.message}</Text>}
                                             <DateTimePickerModal
@@ -489,7 +493,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     imagePickerText: {
-        color: '#6B46C1',
+        color: '#02b34f',
         fontSize: 16,
         fontWeight: '500',
         marginLeft: 8
