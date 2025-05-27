@@ -6,6 +6,8 @@ export const loginAPI = async ({ phone, password }) => {
       phone,
       password,
     });
+    const token = response.data.result.jwt;
+    await saveToken(token);
     return response.data.result.jwt;
   } catch (error) {
     console.log(error)

@@ -6,6 +6,21 @@ import {
   CalendarIcon,
 } from "react-native-heroicons/outline";
 
+
+const getStatusColor = (status) => {
+  switch (status.toLowerCase()) {
+    case "pending":
+      return "#F59E0B"; 
+    case "approved":
+      return "#10B981"; 
+    case "cancelled":
+      return "#EF4444"; 
+    default:
+      return "#6B7280";
+  }
+};
+
+
 const DocumentCard = ({
   title,
   id,
@@ -13,14 +28,15 @@ const DocumentCard = ({
   expiryDate,
   status,
   onPress,
+  statusName
 }) => {
+  const statusColor = getStatusColor(statusName);
+
   return (
-         <TouchableOpacity
-          onPress={onPress}
-          className="bg-white border border-gray-200 rounded-xl p-4 mb-4 shadow-sm active:opacity-80"
-        >
-    <View className="bg-white border border-gray-200 rounded-lg p-4 mx-2 my-1 shadow-sm">
-      {/* Header */}
+    <TouchableOpacity
+      onPress={onPress}
+      className="bg-white border border-gray-200 rounded-xl p-4 mb-4 shadow-sm active:opacity-80"
+    >
       <View className="flex-row justify-between items-center mb-2">
         <View className="flex-row items-center">
           <DocumentIcon className="w-5 h-5 mr-2" color="#3B82F6" />
@@ -28,8 +44,10 @@ const DocumentCard = ({
         </View>
 
         <View className="flex-row items-center">
-          <CheckCircleIcon className="w-5 h-5 mr-1" color="#10B981" />
-          <Text className="text-sm text-green-600 font-semibold">{status}</Text>
+          <CheckCircleIcon className="w-5 h-5 mr-1" color={statusColor} />
+          <Text className="text-sm font-semibold" style={{ color: statusColor }}>
+            {statusName}
+          </Text>
         </View>
       </View>
 
@@ -56,7 +74,6 @@ const DocumentCard = ({
           </Text>
         </View>
       </View>
-    </View>
     </TouchableOpacity>
   );
 };

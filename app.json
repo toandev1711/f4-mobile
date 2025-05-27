@@ -33,7 +33,11 @@
     },
     "ios": {
       "supportsTablet": true,
-      "googleMapsApiKey": "AIzaSyD5GUOMMrDY5Ml8JOQ5j7z7p9f8GaGCDBg"
+      "googleMapsApiKey": "AIzaSyD5GUOMMrDY5Ml8JOQ5j7z7p9f8GaGCDBg",
+      "infoPlist": {
+        "NSCameraUsageDescription": "Ứng dụng cần sử dụng camera để chụp ảnh giấy phép.",
+        "NSPhotoLibraryUsageDescription": "Ứng dụng cần truy cập thư viện ảnh để chọn ảnh giấy phép."
+      }
     },
     "android": {
       "googleMaps": {

@@ -1,5 +1,6 @@
 import React from "react";
 import { View, ScrollView } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import Header from "../../../components/Header/Header";
 import DocumentInfo from "../../../components/ProfileDriver/DocumentInfo";
 import DocumentImages from "../../../components/DocumentImage/DocumentImages";
@@ -7,68 +8,152 @@ import UpdateInstructions from "../../../components/ProfileDriver/UpdateInstruct
 import Button from "../../../components/Button/Button";
 
 const DocumentDetailScreen = ({ route }) => {
+  const navigation = useNavigation();
+
   const {
     documenttype,
-    id,
+    driverId,
+    statusName,
     issueDate,
-    expiryDate,
-    status,
+    createAt,
+    frontPhoto,
+    backPhoto,
     vehicleId,
-    vehicleType,
-    vehicleColor,
-    registrationDate,
-    issuedPlace,
+    licensePlateNumber,
     ownerName,
-    number,
-    birthDate,
-    gender,
-    residence,
+    brand,
+    engineNumber,
+    vehicleTypeName,
+      id,
+      licenseCarId,
+      licenseClass,
+      place,
+      expiryDate,
+      nationality,
+      identifierId,
   } = route.params;
 
   const getDocumentType = (type) => {
     switch (type) {
       case "Giấy phép lái xe":
         return "license";
-      case "Giấy tờ cá nhân":
+      case "Căn cước công dân":
         return "personal";
-      case "Giấy đăng ký xe":
+      case "Thông Tin Xe":
         return "vehicle";
       default:
-        return "vehicle";
+        return "unknown";
     }
   };
 
   const type = getDocumentType(documenttype);
 
-  const documentData = {
+  let documentData = {
     title: documenttype,
-    status,
-    id,
-    licensePlate: vehicleId,
-    vehicleType,
-    vehicleColor,
-    registrationDate,
-    expiryDate,
-    issuedPlace,
-    name: ownerName,
-    number,
-    birthDate,
-    gender,
-    residence,
-    issuedDate: issueDate,
+    type,
+    driverId,
+    statusName,
+    issueDate,
+    createAt,
+    frontPhoto,
+    backPhoto,
   };
 
+  if (type === "vehicle") {
+    documentData = {
+      ...documentData,
+      vehicleId,
+      licensePlateNumber,
+      ownerName,
+      brand,
+      engineNumber,
+      vehicleTypeName,
+    };
+  }
+
+  if (type === "license") {
+    documentData = {
+      ...documentData,
+      id,
+      licenseCarId,
+      licenseClass,
+      place,
+      expiryDate,
+      nationality,
+    };
+  }
+
+  if (type === "personal") {
+    documentData = {
+      ...documentData,
+      identifierId,
+      id,
+    };
+  }
+
   const handleUpdate = () => {
-    console.log("Cập nhật giấy tờ");
+     if (type === "license") {
+      navigation.navigate("UpdateLicenseDocument", {
+      id: id,
+      licenseCarId: licenseCarId,
+      licenseClass: licenseClass,
+      place: place,
+      expiryDate: expiryDate,
+      nationality:nationality,
+      title: documenttype,
+      type: "license",
+      driverId: driverId,
+      statusName: statusName,
+      issueDate: issueDate,
+      createAt: createAt,
+      frontPhoto: frontPhoto,
+      backPhoto: backPhoto,
+      });
+    }else if(type ==="personal"){
+      navigation.navigate("UpdatePersonalDocument", {
+      id: id,
+      title: documenttype,
+      type: "personal",
+      driverId: driverId,
+      statusName: statusName,
+      issueDate: issueDate,
+      createAt: createAt,
+      frontPhoto: frontPhoto,
+      backPhoto: backPhoto,
+      });
+    }else if(type ==="vehicle"){
+      navigation.navigate("UpdateVehicleDocument", {
+      title: documenttype,
+      type: "vehicle",
+      driverId: driverId,
+      statusName: statusName,
+      issueDate: issueDate,
+      createAt: createAt,
+      frontPhoto: frontPhoto,
+      backPhoto: backPhoto,
+      vehicleId: vehicleId,
+      licensePlateNumber: licensePlateNumber,
+      ownerName: ownerName,
+      brand: brand,
+      engineNumber: engineNumber,
+      vehicleTypeName: vehicleTypeName,
+      frontPhoto: frontPhoto,
+      backPhoto: backPhoto,
+      });
+    }
+     else {
+      console.warn("Không xác định loại giấy tờ để cập nhật.");
+    }
   };
+
 
   return (
     <View className="flex-1 bg-gray-100">
-      <Header value="Chi tiết giấy tờ" tail="Cập nhật" onClick={handleUpdate} />
+      <Header value="Chi tiết giấy tờ"/>
 
       <ScrollView className="flex-1 p-4">
-        <DocumentInfo type={type} {...documentData} />
-        <DocumentImages />
+        <DocumentInfo {...documentData} />
+        <DocumentImages frontPhoto={frontPhoto} backPhoto={backPhoto} />
         <UpdateInstructions />
       </ScrollView>
 
