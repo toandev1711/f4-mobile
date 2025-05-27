@@ -245,7 +245,7 @@ const LicenseInfoScreen = () => {
                     <ActivityIndicator size="small" color="#6B46C1" />
                 ) : (
                     <View style={styles.imagePickerContent}>
-                        <Icon name="camera-plus" size={24} color="#6B46C1" />
+                        <Icon name="camera-plus" size={24} color="#02b34f" />
                         <Text style={styles.imagePickerText}>
                             {formData[key] ? `Thay ${label}` : `Tải lên ${label}`}
                         </Text>
@@ -397,7 +397,7 @@ const LicenseInfoScreen = () => {
                                             editable={false}
                                             placeholderTextColor="#A0AEC0"
                                         />
-                                        <Icon name="calendar" size={20} color="#6B46C1" style={styles.icon} />
+                                        <Icon name="calendar" size={20} color="#02b34f" style={styles.icon} />
                                     </TouchableOpacity>
                                     {errors.issueDate && <Text style={styles.errorText}>{errors.issueDate.message}</Text>}
                                     <DateTimePickerModal
@@ -431,7 +431,7 @@ const LicenseInfoScreen = () => {
                                             editable={false}
                                             placeholderTextColor="#A0AEC0"
                                         />
-                                        <Icon name="calendar" size={20} color="#6B46C1" style={styles.icon} />
+                                        <Icon name="calendar" size={20} color="#02b34f" style={styles.icon} />
                                     </TouchableOpacity>
                                     {errors.expiryDate && <Text style={styles.errorText}>{errors.expiryDate.message}</Text>}
                                     <DateTimePickerModal
@@ -602,7 +602,7 @@ const styles = StyleSheet.create({
     scrollContent: { flexGrow: 1, justifyContent: 'center' },
     main: { flex: 1, justifyContent: 'center', alignItems: 'center' },
     formContainer: { width: width * 0.9, maxWidth: 400, paddingVertical: 8, paddingHorizontal: 8 },
-    stepTitle: { fontSize: 18, fontWeight: '600', marginBottom: 16, color: '#1F2937' },
+    stepTitle: { fontSize: 18, fontWeight: '600', marginBottom: 16, color: '#243d3a' },
     imagePickerContainer: { marginBottom: 16 },
     imagePicker: {
         backgroundColor: '#FFFFFF',
@@ -620,7 +620,7 @@ const styles = StyleSheet.create({
     },
     imagePickerWithImage: { backgroundColor: '#F3E8FF' },
     imagePickerContent: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center' },
-    imagePickerText: { color: '#6B46C1', fontSize: 16, fontWeight: '500', marginLeft: 8 },
+    imagePickerText: { color: '#02b34f', fontSize: 16, fontWeight: '500', marginLeft: 8 },
     imagePreviewContainer: { position: 'relative', marginTop: 12 },
     imagePreview: { width: '100%', height: 180, borderRadius: 12, borderWidth: 1, borderColor: '#E5E7EB' },
     removeImageButton: { position: 'absolute', top: 8, right: 8, backgroundColor: 'rgba(255, 255, 255, 0.9)', borderRadius: 12, padding: 4 },

@@ -1,4 +1,3 @@
-// src/screens/HomeScreen.jsx
 import React from 'react';
 import { View, ScrollView, StyleSheet } from 'react-native';
 import Header1 from '../../components/Header1/Header1';
@@ -11,28 +10,38 @@ import Footer from '../../components/Footer/Footer';
 
 const HomeScreen = () => {
   return (
-    <View style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <Header1 />
-        <ServiceCards />
-        <QuickAccess />
-        <DriverPromotion />
-        <Promotions />
-        <Suggestions />
-        <Footer />
+    <View style={styles.screenContainer}>
+      <Header1 />
+      <ScrollView showsVerticalScrollIndicator={false} style={styles.scrollContainer}>
+        <View style={styles.contentContainer}>
+          <ServiceCards />
+          <QuickAccess />
+          <DriverPromotion />
+          <Promotions />
+          <Suggestions />
+          <Footer />
+        </View>
       </ScrollView>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  screenContainer: {
+    flex: 1,
+    backgroundColor: '#FFFFFF',
+  },
+  scrollContainer: {
+    flexGrow: 1,
+    marginHorizontal: 10,
+  },
+  contentContainer: {
     flex: 1,
     paddingHorizontal: 10,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: '#FFFFFF',
     maxWidth: 480,
     alignSelf: 'center',
-    //paddingBottom: 60, // Để tránh TabBar che nội dung
+    // paddingBottom: 60, 
   },
 });
 

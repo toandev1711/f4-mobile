@@ -26,12 +26,12 @@ const styles = StyleSheet.create({
     },
     progressBar: {
         height: '100%',
-        backgroundColor: '#6B46C1'
+        backgroundColor: '#03633e'
     },
     stepText: {
         marginTop: 8,
-        fontSize: 14,
-        color: '#333',
+        fontSize: 16,
+        color: 'black',
         textAlign: 'center'
     }
 });

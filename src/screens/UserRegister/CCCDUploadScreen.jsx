@@ -218,10 +218,10 @@ const CCCDUploadScreen = () => {
                 disabled={isImageLoading}
             >
                 {isImageLoading && key === imagePickerKey ? (
-                    <ActivityIndicator size="small" color="#6B46C1" />
+                    <ActivityIndicator size="small" color="#02b34f" />
                 ) : (
                     <View style={styles.imagePickerContent}>
-                        <Icon name="camera-plus" size={24} color="#6B46C1" />
+                        <Icon name="camera-plus" size={24} color="#02b34f" />
                         <Text style={styles.imagePickerText}>
                             {formData[key] ? `Thay ${label}` : `Tải lên ${label}`}
                         </Text>
@@ -366,7 +366,7 @@ const styles = StyleSheet.create({
     scrollContent: { flexGrow: 1, justifyContent: 'center' },
     main: { flex: 1, justifyContent: 'center', alignItems: 'center' },
     formContainer: { width: width * 0.9, maxWidth: 400, paddingVertical: 8, paddingHorizontal: 8 },
-    stepTitle: { fontSize: 18, fontWeight: '600', marginBottom: 16, color: '#1F2937' },
+    stepTitle: { fontSize: 18, fontWeight: '600', marginBottom: 16, color: '#243d3a' },
     imagePickerContainer: { marginBottom: 16 },
     imagePicker: {
         backgroundColor: '#FFFFFF',
@@ -384,11 +384,11 @@ const styles = StyleSheet.create({
     },
     imagePickerWithImage: { backgroundColor: '#F3E8FF' },
     imagePickerContent: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center' },
-    imagePickerText: { color: '#6B46C1', fontSize: 16, fontWeight: '500', marginLeft: 8 },
+    imagePickerText: { color: '#243d3a', fontSize: 16, fontWeight: '500', marginLeft: 8 },
     imagePreviewContainer: { position: 'relative', marginTop: 12 },
     imagePreview: { width: '100%', height: 180, borderRadius: 12, borderWidth: 1, borderColor: '#E5E7EB' },
     removeImageButton: { position: 'absolute', top: 8, right: 8, backgroundColor: 'rgba(255, 255, 255, 0.9)', borderRadius: 12, padding: 4 },
-    imageGuideText: { fontSize: 12, color: '#6B7280', marginTop: 8, textAlign: 'center' },
+    imageGuideText: { fontSize: 12, color: '#243d3a', marginTop: 8, textAlign: 'center' },
     navButtons: { marginTop: 12 },
     submitButton: { backgroundColor: '#6B46C1', marginBottom: 8 },
     backButton: { backgroundColor: '#FFFFFF', borderWidth: 1, borderColor: '#9CA3AF', marginBottom: 8 },

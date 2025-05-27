@@ -26,13 +26,13 @@ const styles = StyleSheet.create({
     },
     welcomeText: {
         fontSize: 16,
-        color: '#333',
+        color: '#03633e',
         textAlign: 'center'
     },
     brandText: {
-        fontSize: 24,
+        fontSize: 30,
         fontWeight: 'bold',
-        color: '#6B46C1'
+        color: '#02b34f'
     }
 });
 
