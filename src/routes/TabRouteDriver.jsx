@@ -22,26 +22,38 @@ const TabRoutesDriver = [
     options: {
       tabBarLabel: "Home",
       tabBarIcon: ({ color, size, focused }) =>
-        focused ? <HomeSolid color={color} size={20} /> : <HomeOutline color={color} size={20} />,
+        focused ? (
+          <HomeSolid color={color} size={20} />
+        ) : (
+          <HomeOutline color={color} size={20} />
+        ),
     },
   },
 
-    {
+  {
     name: "Profile",
     component: ProfileDriverScreen,
     options: {
       tabBarLabel: "Profiles",
       tabBarIcon: ({ color, size, focused }) =>
-        focused ? <UserSolid color={color} size={20} /> : <UserOutline color={color} size={20} />,
+        focused ? (
+          <UserSolid color={color} size={20} />
+        ) : (
+          <UserOutline color={color} size={20} />
+        ),
     },
   },
-      {
+  {
     name: "DriverSideBarScreen",
     component: DriverSideBarScreen,
     options: {
       tabBarLabel: "Menu",
       tabBarIcon: ({ color, size, focused }) =>
-        focused ? <MenuOutline color={color} size={20} /> : <MenuOutline color={color} size={20} />,
+        focused ? (
+          <MenuOutline color={color} size={20} />
+        ) : (
+          <MenuOutline color={color} size={20} />
+        ),
     },
   },
 ];

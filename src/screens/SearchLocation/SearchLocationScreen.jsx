@@ -4,6 +4,7 @@ import React, {
   useMemo,
   useEffect,
   useRef,
+  use,
 } from "react";
 import {
   View,
@@ -21,7 +22,7 @@ import * as Location from "expo-location";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import RecentAddress from "../../components/Transport/RecentAddress/RecentAddress";
 import SearchAddTouch from "../../components/SearchAddTouch/SearchAddTouch";
-
+import { useLocation } from "../../context/LocationContext";
 export default function SearchLocationScreen() {
   const [searchQuery, setSearchQuery] = useState("");
   const [suggestions, setSuggestions] = useState([]);
@@ -30,11 +31,11 @@ export default function SearchLocationScreen() {
   const [editableInputId, setEditableInputId] = useState(null);
   const navigation = useNavigation();
   const [isLoading, setIsLoading] = useState(true);
-
   const route = useRoute();
-  const [fromDisplayLocation, setFromDisplayLocation] = useState("");
+  const [fromDisplayLocation, setFromDisplayLocation] = useState();
+  const { setPickUp, pickUp } = useLocation();
   const [displayCurrentLocation, setDisplayCurrentLocation] =
-    useState("Current Position");
+    useState("Vị trí hiện tại");
   const inputRef = useRef(null);
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -47,16 +48,15 @@ export default function SearchLocationScreen() {
   useEffect(() => {
     const { recentAddressList = [] } = route.params || {};
     const { fromPosition } = route.params;
-    setFromDisplayLocation(fromPosition ? fromPosition : getCurrentLocation());
+    setFromDisplayLocation(fromPosition ?? pickUp?.displayName);
     handleInputFocus("input2");
   }, []);
-
+  useEffect(() => {
+    setFromDisplayLocation(pickUp?.displayName ?? "Vị trí hiện tại");
+    handleInputFocus("input2");
+  }, [pickUp]);
   const goBack = () => {
     navigation.goBack();
-  };
-  const handleDataFromMap = (payload) => {
-    handleInputBlur();
-    setFromDisplayLocation(payload);
   };
   const navigateToMap = async (refId, type) => {
     const data = await fetchLatLog(refId);
@@ -64,7 +64,6 @@ export default function SearchLocationScreen() {
       lat: data.lat,
       lng: data.lng,
       navType: type,
-      onReturn: handleDataFromMap,
     });
   };
   function toRad(degrees) {
@@ -74,19 +73,15 @@ export default function SearchLocationScreen() {
     const location = await Location.getCurrentPositionAsync({});
     const { latitude, longitude } = location.coords;
     const R = 6371;
-
     const dLat = toRad(lat2 - latitude);
     const dLon = toRad(lon2 - longitude);
-
     const phi1 = toRad(latitude);
     const phi2 = toRad(lat2);
-
     const a =
       Math.sin(dLat / 2) * Math.sin(dLat / 2) +
       Math.cos(phi1) * Math.cos(phi2) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
-
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    return (R * c);
+    return R * c;
   };
   const fetchLatLog = async (refId) => {
     try {
@@ -99,12 +94,14 @@ export default function SearchLocationScreen() {
       return res.data;
     } catch (err) {}
   };
+  const isFetchingRef = useRef(false);
+
   const fetchSuggestions = useCallback(
     debounce(async (query) => {
-      if (!query) {
-        setSuggestions([]);
-        return;
-      }
+      if (!query || isFetchingRef.current) return;
+
+      isFetchingRef.current = true;
+
       try {
         const res = await axios.get(
           "https://maps.vietmap.vn/api/autocomplete/v3",
@@ -115,24 +112,31 @@ export default function SearchLocationScreen() {
             },
           }
         );
+
         const suggestions = res.data || [];
+
         const suggestionsWithCoords = await Promise.all(
           suggestions.map(async (item) => {
-            const latlogRes = await fetchLatLog(item.ref_id);
+            // const latlogRes = await fetchLatLog(item.ref_id);
             return {
               ...item,
-              lat: latlogRes.lat,
-              long: latlogRes.lng,
-              fullAddress: latlogRes.display,
-              distance: (await haversineDistance(latlogRes.lat, latlogRes.lng)).toFixed(1),
+              // lat: latlogRes.lat,
+              // long: latlogRes.lng,
+              fullAddress: item.display,
+              // distance: (
+              //   await haversineDistance(latlogRes.lat, latlogRes.lng)
+              // ).toFixed(1),
             };
           })
         );
-        setSuggestions(suggestionsWithCoords)
+
+        setSuggestions(suggestionsWithCoords);
       } catch (err) {
-        console.error("Error fetching suggestions:", err);
+        console.error("Error fetching suggestions:", err?.message || err);
+      } finally {
+        isFetchingRef.current = false;
       }
-    }, 200),
+    }, 800),
     []
   );
 
@@ -201,12 +205,12 @@ export default function SearchLocationScreen() {
     );
   }
   return (
-    <View className="flex-1 bg-white">
+    <View className="flex-1 bg-white mt-5">
       <View className="flex-row py-3 border-b border-gray-300">
         <View className="flex-1 ">
           <SearchAddTouch
             id="input1"
-            placeholder="Select from"
+            placeholder="Chọn điểm đi"
             focusedInputId={focusedInputId}
             editableInputId={editableInputId}
             onFocus={handleInputFocus}
@@ -222,33 +226,31 @@ export default function SearchLocationScreen() {
           </View>
           <SearchAddTouch
             id="input2"
-            placeholder="Select destination"
+            placeholder="Chọn điểm đến"
             focusedInputId={focusedInputId}
             editableInputId={editableInputId}
             onFocus={handleInputFocus}
             onBlur={handleInputBlur}
             onChangeText={handleInputChange}
-            currentValue={"Select destination"}
+            currentValue={"Chọn điểm đến"}
             dotColor="bg-red-600"
             size={0}
             tailSize={0}
           />
         </View>
       </View>
-
       <ScrollView
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="always"
         className="mt-5 px-2"
       >
-        {suggestions?.map((item, idx) =>
-   
+        {suggestions?.map((item, idx) => (
           <RecentAddress
             key={idx}
             item={item}
             onPress={() => navigateToMap(item.ref_id, focusedInputId)}
           />
-        )}
+        ))}
       </ScrollView>
     </View>
   );

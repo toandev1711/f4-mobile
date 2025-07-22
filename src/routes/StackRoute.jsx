@@ -16,6 +16,12 @@ import HistoryDetailScreen from "../screens/Activity/HistoryDetailScreen";
 import UpdateVehicleDocument from "../screens/ProfileDriver/Documents/UpdateVehicleDocument";
 import UpdatePersonalDocument from "../screens/ProfileDriver/Documents/UpdatePersonalDocument";
 import UpdateLicenseDocument from "../screens/ProfileDriver/Documents/UpdateLicenseDocument";
+import BookingScreen from "../screens/BookingScreen/BookingScreen";
+import WaitingDriver from "../screens/WatingDriver/WaitingDriver";
+import DriverAcceptedScreen from "../screens/WatingDriver/DriverAcceptedScreen";
+import BookingHistory from "../screens/BookingScreen/BookingStory";
+import PartnerListScreen from "../screens/Chat/PartnerListScreen";
+import RatingScreen from "../components/Rating/RatingScreen";
 const StackRoutes = [
   {
     name: "EditProfile",
@@ -66,6 +72,11 @@ const StackRoutes = [
     options: { title: "My Profile", headerShown: false },
   },
   {
+    name: "BookingHistory",
+    component: BookingHistory,
+    options: { title: "My Profile", headerShown: false },
+  },
+  {
     name: "Transport",
     component: TransportScreen,
     options: { title: "My Profile", headerShown: false },
@@ -109,7 +120,36 @@ const StackRoutes = [
     name: "UpdatePersonalDocument",
     component: UpdatePersonalDocument,
     options: { title: "UpdatePersonalDocument", headerShown: false },
-  }, 
+  },
+  {
+    name: "BookingScreen",
+    component: BookingScreen,
+    options: { title: "UpdatePersonalDocument", headerShown: false },
+  },
+  {
+    name: "WaitingDriver",
+    component: WaitingDriver,
+    options: { title: "UpdatePersonalDocument", headerShown: false },
+  },
+  {
+    name: "DriverAcceptedScreen",
+    component: DriverAcceptedScreen,
+    options: { title: "UpdatePersonalDocument", headerShown: false },
+  },
+  {
+    name: "MessageList",
+    component: PartnerListScreen,
+    options: { title: "UpdatePersonalDocument", headerShown: false },
+  },
+  {
+    name: "RatingScreen",
+    component: RatingScreen,
+    options: { title: "UpdatePersonalDocument", headerShown: false },
+  },
+  {
+    name: "HistoryDetailScreen",
+    component: HistoryDetailScreen,
+    options: { title: "UpdatePersonalDocument", headerShown: false },
+  },
 ];
-
 export default StackRoutes;

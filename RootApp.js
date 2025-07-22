@@ -7,6 +7,7 @@ import { ActivityIndicator, SafeAreaView, View } from "react-native";
 import { useFonts } from "expo-font";
 import { useEffect } from "react";
 import AuthStack from "./AuthStack";
+import { SocketProvider } from "./src/context/SocketContext";
 
 export default RootApp = () => {
   const [fontLoaded] = useFonts({
@@ -31,8 +32,10 @@ export default RootApp = () => {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: statusBarColor }}>
       <NavigationContainer>
-        {user ? <MainStack /> : <AuthStack />}
-        {/* <MainStack /> */}
+        <SocketProvider userId={user?.id}>
+          {user ? <MainStack /> : <AuthStack />}
+          {/* <MainStack /> */}
+        </SocketProvider>
       </NavigationContainer>
     </SafeAreaView>
   );

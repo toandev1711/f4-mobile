@@ -20,11 +20,15 @@ export default function ChatDetailScreen() {
 
   const { sendMessage, messages: allMessages } = useSocket();
 
+  // Kết hợp tin nhắn cũ + tin nhắn mới từ WS
+  // Lọc theo partnerId và sắp xếp tăng dần theo timestamp
   const combinedMessages = [...(initialMessages || []), ...allMessages];
 
   const filteredMessages = combinedMessages
     .filter((m) => m.senderId === partnerId || m.receiverId === partnerId)
     .sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+
+  // Scroll xuống dưới khi messages thay đổi
   const scrollToEnd = () => {
     if (flatListRef.current) {
       flatListRef.current.scrollToEnd({ animated: true });
@@ -46,7 +50,7 @@ export default function ChatDetailScreen() {
     const isFromPartner = item.senderId === partnerId;
     return (
       <View
-        className={`p-3 rounded-xl my-1 max-w-[75%] mt-5 ${
+        className={`p-3 rounded-xl my-1 max-w-[75%] ${
           isFromPartner ? "bg-gray-200 self-start" : "bg-green-500 self-end"
         }`}
       >
@@ -63,7 +67,7 @@ export default function ChatDetailScreen() {
       className="flex-1 bg-white"
     >
       <View className="text-lg font-bold mb-4 bg-green-500 text-white p-4 flex-row justify-between items-center">
-        <View className="flex-row mt-6">
+        <View className="flex-row">
           <Image
             source={{
               uri: "https://cdn-icons-png.flaticon.com/512/9131/9131529.png",
@@ -77,9 +81,9 @@ export default function ChatDetailScreen() {
         </View>
         <View className="flex-row">
           <View className="mr-2">
-            <PhoneIcon color="#fff" size={20} />
+            <PhoneIcon color="#fff" size={17} />
           </View>
-          <VideoCameraIcon className="ml-2" color="#fff" size={20} />
+          <VideoCameraIcon className="ml-2" color="#fff" size={17} />
         </View>
       </View>
       <View className="flex-1 p-4">

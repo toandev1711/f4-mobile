@@ -79,10 +79,7 @@ const LoginScreen = () => {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <LinearGradient
-        colors={["#4dbccf", "#5cbaa2"]}
-        style={styles.container}
-      >
+      <LinearGradient colors={["#4dbccf", "#5cbaa2"]} style={styles.container}>
         <LinearGradient
           colors={["#4dbccf", "#5cbaa2"]}
           style={styles.headerContainer}
@@ -221,7 +218,7 @@ const styles = StyleSheet.create({
   },
   plantImage: {
     width: 180,
-    height: 180
+    height: 180,
   },
   formContainer: {
     flex: 1,
@@ -240,7 +237,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#2E7D7A",
     marginBottom: 16,
-    textAlign: "center"
+    textAlign: "center",
   },
   inputField: {
     marginBottom: 16,
@@ -312,7 +309,7 @@ const styles = StyleSheet.create({
     marginVertical: 8,
     width: "100%",
     marginTop: 0,
-    marginBottom: 10
+    marginBottom: 10,
   },
   rememberMeContainer: {
     flexDirection: "row",
@@ -335,7 +332,7 @@ const styles = StyleSheet.create({
   rememberMeText: {
     color: "#2E7D7A",
     fontSize: 14,
-  }
+  },
 });
 
 export default LoginScreen;

@@ -5,8 +5,8 @@ export default function RouteCard({ from, to, timeFrom, timeTo }) {
   return (
     <View className="bg-white rounded-xl border border-gray-200 p-4">
       <View className="flex-row justify-between mb-3">
-        <Text className="text-sm text-gray-700 font-medium">GrabBike Huế</Text>
-        <Text className="text-sm text-gray-500">0.53 km • 5min</Text>
+        <Text className="text-sm text-gray-700 font-medium">Lịch trình</Text>
+        <Text className="text-sm text-gray-500"></Text>
       </View>
 
       <View className="flex-row">

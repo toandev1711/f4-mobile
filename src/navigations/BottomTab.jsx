@@ -14,6 +14,7 @@ const BottomTab = () => {
           elevation: 0,
           shadowColor: "transparent",
           height: 52,
+          marginBottom: 12,
         },
         tabBarActiveTintColor: "#02b34f",
       }}

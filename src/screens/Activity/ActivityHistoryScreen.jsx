@@ -4,6 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import { ArrowLeftIcon } from "react-native-heroicons/outline";
 import Chip from "../../components/Activity/Chip";
 import HistoryItem from "../../components/Activity/HistoryItem";
+import { AuthProvider, useAuth } from "../../context/AuthContext";
 
 export default function ActivityHistoryScreen() {
   const navigation = useNavigation();
@@ -36,6 +37,9 @@ export default function ActivityHistoryScreen() {
     },
   ];
   const [activeTab, setActiveTab] = useState("Transport");
+  const { bookingHistory } = useAuth();
+  console.log("Booking History:", bookingHistory);
+
   return (
     <View className="flex-1 bg-white px-4 pt-4">
       <View className="flex-row items-center mb-7">
@@ -55,7 +59,7 @@ export default function ActivityHistoryScreen() {
         ))}
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
-        {historyData.map((item, index) => (
+        {bookingHistory.map((item, index) => (
           <TouchableOpacity
             onPress={() =>
               navigation.navigate("ActivityHistoryDetail", { item })

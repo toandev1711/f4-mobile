@@ -19,6 +19,7 @@ import UserProfileScreen from "../screens/UserProfile/UserProfileScreen";
 import HomeScreen from "../screens/HomeScreen/HomeScreen";
 import ChatListScreen from "../screens/Chat/ChatListScreen";
 import ActivityScreen from "../screens/Activity/ActivityScreen";
+import PartnerListScreen from "../screens/Chat/PartnerListScreen";
 
 const TabRoutes = [
   {
@@ -49,7 +50,7 @@ const TabRoutes = [
   },
   {
     name: "Message",
-    component: ChatListScreen,
+    component: PartnerListScreen,
     options: {
       tabBarLabel: "Tin nhắn",
       tabBarIcon: ({ color, size, focused }) =>

@@ -9,28 +9,30 @@ import {
   ExclamationTriangleIcon,
 } from "react-native-heroicons/outline";
 import RouteCard from "../../components/Activity/RouteCard";
-import { useAuth } from "../../context/AuthContext";
-import { AirbnbRating } from "react-native-ratings";
 
 export default function HistoryDetailScreen() {
   const { params } = useRoute();
   const navigation = useNavigation();
-  const data = params?.booking;
-  console.log("History Detail Data:", data);
+  const data = params?.item;
+
   return (
-    <ScrollView className="flex-1 bg-white px-4 py-6 mt-7">
+    <ScrollView className="flex-1 bg-white px-4 py-4">
       <TouchableOpacity
         onPress={() => navigation.goBack()}
         className="mb-4 flex-row items-center"
       >
-        <ChevronLeftIcon size={20} color="black" />
-        <Text className="text-2xl font-semibold">Chi tiết chuyến đi</Text>
+        <ChevronLeftIcon size={22} color="black" />
+
+        <Text className="text-xl font-semibold">
+          {data?.time || "23 Jan 2025, 10:30PM"}
+        </Text>
       </TouchableOpacity>
+
       <View className="mb-4  flex-row justify-between items-center">
-        <Text className="text-lg text-gray-500">Thời gian</Text>
+        <Text className="text-lg text-gray-500">Booking ID</Text>
         <View className="flex-row items-center">
           <Text className="text-sm font-semibold items-center">
-            {data?.createdDate || "abcfasssf"}{" "}
+            {data?.bookingId || "abcfasssf"}{" "}
           </Text>
           <DocumentDuplicateIcon size={19} color="#ccc" />
         </View>
@@ -50,28 +52,26 @@ export default function HistoryDetailScreen() {
         </View>
         <View className="flex-row items-center my-2 py-2">
           <UserCircleIcon size={24} color="#104d45" />
-          <Text className="text-base ml-3">{data?.user || "Nguyen Van A"}</Text>
+          <Text className="text-base ml-3">
+            {data?.accountName || "Nguyen Van A"}
+          </Text>
         </View>
         <View className="flex-row items-center py-3 border-t border-gray-200 justify-between">
-          <Text className="text-base font-semibold">Đánh giá </Text>
-          <Text className="text-base font-bold">{data.rating}/5</Text>
-        </View>
-        <View className="flex-row items-center py-3 border-t border-gray-200 justify-between">
-          <Text className="text-base font-semibold">Thành tiền</Text>
-          <Text className="text-base font-bold">{data.price.toFixed(1)}đ</Text>
+          <Text className="text-base font-semibold">Total</Text>
+          <Text className="text-base font-bold">20.000đ</Text>
         </View>
       </View>
 
       <RouteCard
-        from={data?.pickupAddress || "Intersection of Chu Van An - Le Loi"}
-        to={data?.dropoffAddress || "40 Nguyễn Sinh Cung"}
-        // timeFrom={data?.timeFrom || "10:30 PM"}
-        // timeTo={data?.timeTo || "10:36 PM"}
+        from={data?.from || "Intersection of Chu Van An - Le Loi"}
+        to={data?.to || "40 Nguyễn Sinh Cung"}
+        timeFrom={data?.timeFrom || "10:30 PM"}
+        timeTo={data?.timeTo || "10:36 PM"}
       />
 
       <TouchableOpacity className="my-3">
         <Text className="text-center text-blue-600 font-semibold">
-          Báo cáo sự cố
+          Report An Issue
         </Text>
       </TouchableOpacity>
 
@@ -80,7 +80,7 @@ export default function HistoryDetailScreen() {
         onPress={() => {}}
       >
         <Text className="text-white text-center font-semibold text-base">
-          Đặt lại xe
+          Rebook
         </Text>
       </TouchableOpacity>
     </ScrollView>

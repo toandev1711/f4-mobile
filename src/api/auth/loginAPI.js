@@ -2,23 +2,23 @@ import instance from "../instance";
 
 export const loginAPI = async ({ phone, password }) => {
   try {
-    const response = await instance.post("/auth/login", {
+    const response = await instance.post("/auth/user", {
       phone,
       password,
     });
     const token = response.data.result.jwt;
-    await saveToken(token);
+
     return response.data.result.jwt;
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
 };
 
 export const getMyInfo = async (token) => {
   const response = await instance.get("/users/info", {
     headers: {
-      Authorization: `Bearer ${token}`, 
+      Authorization: `Bearer ${token}`,
     },
   });
-  return response.data; 
+  return response.data;
 };

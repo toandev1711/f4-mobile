@@ -8,15 +8,20 @@ import React, {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { loginAPI, getMyInfo } from "../api/auth/loginAPI";
 import { jwtDecode } from "jwt-decode";
+import { getBookingHistory } from "../api/Booking/getBookingHistory";
 const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
   const [role, setRole] = useState(null);
+  const [bookingHistory, setBookingHistory] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [bookingId, setBookingId] = useState(null);
+  const [booking, setBooking] = useState(null);
+  const [driverInfo, setDriverInfo] = useState(null);
+  const [completedBooking, setCompletedBooking] = useState(false);
   function hasRoleUser(scopeString) {
     if (typeof scopeString !== "string") return false;
-
     const roles = scopeString.trim().split(/\s+/);
     return roles.includes("ROLE_USER");
   }
@@ -54,6 +59,8 @@ export const AuthProvider = ({ children }) => {
       await AsyncStorage.setItem("user", JSON.stringify(userInfo.result));
       await AsyncStorage.setItem("userID", userID);
       await AsyncStorage.setItem("token", token);
+      const bh = await getBookingHistory(userID);
+      setBookingHistory(bh);
     } catch (error) {
       throw new Error("Login failed");
     }
@@ -65,12 +72,30 @@ export const AuthProvider = ({ children }) => {
       setToken(null);
       await AsyncStorage.removeItem("user");
       await AsyncStorage.removeItem("token");
-    } catch (error) { }
+    } catch (error) {}
   };
 
   return (
     <AuthContext.Provider
-      value={{ setUser, user, token, isLoading, login, logout }}
+      value={{
+        setUser,
+        user,
+        token,
+        isLoading,
+        login,
+        logout,
+        bookingHistory,
+        bookingId,
+        setBookingId,
+        driverInfo,
+        setDriverInfo,
+        role,
+        hasRoleUser,
+        completedBooking,
+        setCompletedBooking,
+        booking,
+        setBooking,
+      }}
     >
       {children}
     </AuthContext.Provider>

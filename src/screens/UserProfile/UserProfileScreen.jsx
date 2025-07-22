@@ -22,22 +22,32 @@ import { useAuth } from "../../context/AuthContext";
 const UserProfileScreen = () => {
   const { user, logout } = useAuth();
   const navigation = useNavigation();
+  const navigateBookingHistory = () => {
+    navigation.navigate("BookingHistory");
+  };
   const [profileListItem] = useState([
-    { icon: <Cog6ToothIcon size={22} color="gray" />, content: "Setting" },
-    { icon: <QueueListIcon size={22} color="gray" />, content: "My Orders" },
-    { icon: <MapPinIcon size={22} color="gray" />, content: "Address" },
+    { icon: <Cog6ToothIcon size={22} color="gray" />, content: "Cài đặt" },
+    {
+      icon: <QueueListIcon size={22} color="gray" />,
+      content: "Lịch sử đặt xe",
+      func: navigateBookingHistory,
+    },
+    {
+      icon: <MapPinIcon size={22} color="gray" />,
+      content: "Địa chỉ yêu thích",
+    },
     {
       icon: <LockClosedIcon size={22} color="gray" />,
-      content: "Change Password",
+      content: "Đổi mật khẩu",
     },
     {
       icon: <QuestionMarkCircleIcon size={22} color="gray" />,
-      content: "Help & Support",
+      content: "Trợ giúp",
     },
     {
       icon: <ArrowRightOnRectangleIcon size={22} color="gray" />,
-      func : logout,
-      content: "Logout",
+      func: logout,
+      content: "Đăng xuất",
     },
   ]);
 
@@ -51,7 +61,7 @@ const UserProfileScreen = () => {
         <View className="px-4 py-1">
           <View className="flex flex-col items-center justify-center">
             <Text className="p-5 font-bold text-xl">Hồ sơ của bạn</Text>
-            <CircleAvatar url={user.profilePicture || ''}/>
+            <CircleAvatar url={user.profilePicture || ""} />
             <View className="profileInfo p-5 flex items-center">
               <Text className="font-bold text-lg">{user.fullName}</Text>
               <Text className="text-sm">ID: {user.userNumber}</Text>
@@ -62,7 +72,6 @@ const UserProfileScreen = () => {
               content="Chỉnh sửa chi tiết"
               bgClass="bg-black"
               onPress={goToEditProfile}
-            
             />
           </View>
           <View className="border-t-[0.5px] border-t-gray-300 py-4 mt-4">
